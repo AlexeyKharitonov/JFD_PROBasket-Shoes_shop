@@ -1,18 +1,20 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import CardWrapper from "./app/components/Common/CardWrapper";
+import MainWrapper from "./app/components/Common/Wrappers/MainWrapper";
 import { AppBar as Header } from "./app/layouts/AppBar";
 import MainPage from "./app/screens/MainPage";
-import ContactsPage from "./app/layouts/ContactsPage";
 import About from "./app/layouts/About";
-import Login from "./app/layouts/Login";
 import Footer from "./app/layouts/Footer";
 import Detail from "./app/screens/ProductDetail";
 import { SelectedTitleProvider } from "./app/hooks/useTitle";
+import Basket from "./app/layouts/Basket";
+import LoginPage from "./app/components/UI/LoginPage";
+import RegisterPage from "./app/components/UI/RegisterPage";
+import FavoritePage from "./app/screens/FavoritePage";
 
 function App() {
   return (
-    <CardWrapper>
+    <MainWrapper>
       <Header />
       <div style={{ flex: "1 0 auto" }}>
         <Routes>
@@ -26,13 +28,15 @@ function App() {
           />
           <Route path="/product/:id" element={<Detail />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contacts" element={<ContactsPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/register" element={<RegisterPage />} />
+          <Route path="/favorite" element={<FavoritePage />} />
+          <Route path="/basket" element={<Basket />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
       <Footer />
-    </CardWrapper>
+    </MainWrapper>
   );
 }
 

@@ -4,7 +4,7 @@ export const Loader = () => {
       <div role="status">
         <svg
           aria-hidden="true"
-          className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#0f6fd1]"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@ export const Loader = () => {
       <div role="status">
         <svg
           aria-hidden="true"
-          className="inline w-11 h-11 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="inline w-11 h-11 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#0f6fd1]"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ export const Loader = () => {
       <div role="status">
         <svg
           aria-hidden="true"
-          className="inline w-15 h-16 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="inline w-15 h-16 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#0f6fd1]"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ export const Loader = () => {
       <div role="status">
         <svg
           aria-hidden="true"
-          className="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#0f6fd1]"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

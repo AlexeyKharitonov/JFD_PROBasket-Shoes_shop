@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
   const pageCount = Math.ceil(itemsCount / pageSize);
@@ -8,14 +9,23 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
 
   return (
     <nav aria-label="Page navigation example">
-      <ul className="inline-flex items-center -space-x-px">
+      <ul className="flex justify-center items-center space-x-0">
+        <li>
+          <button
+            className="focus:outline-none px-4 py-2 leading-tight text-gray-500 bg-white border-2 border-gray-300 rounded-l-lg shadow-md hover:bg-gray-300 hover:text-black transition duration-200 ease-in-out flex items-center justify-center"
+            onClick={() => onPageChange(Math.max(1, currentPage - 1))}
+            disabled={currentPage === 1}
+          >
+            <MdKeyboardArrowLeft size={24} />
+          </button>
+        </li>
         {pages.map((page) => (
           <li key={"page_" + page}>
             <button
               className={
                 page === currentPage
-                  ? "z-10 px-3 py-2 leading-tight text-white font-semibold border-4 rounded-md border-gray-300 bg-cyan-600"
-                  : "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300"
+                  ? "focus:outline-none z-10 w-10 px-4 py-2 leading-tight text-white font-semibold border-2 border-transparent rounded-md shadow-md bg-[#0f6fd1] hover:bg-cyan-700 transition duration-200 ease-in-out flex items-center justify-center"
+                  : "focus:outline-none w-10 px-4 py-2 leading-tight text-gray-500 bg-white border-2 border-gray-300 rounded-md shadow-md hover:bg-gray-300 hover:text-black transition duration-200 ease-in-out flex items-center justify-center"
               }
               onClick={() => onPageChange(page)}
             >
@@ -23,27 +33,15 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
             </button>
           </li>
         ))}
-        {/* <li>
-          <a
-            href="#"
-            className="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        <li>
+          <button
+            className="focus:outline-none px-4 py-2 leading-tight text-gray-500 bg-white border-2 border-gray-300 rounded-r-lg shadow-md hover:bg-gray-300 hover:text-black transition duration-200 ease-in-out flex items-center justify-center"
+            onClick={() => onPageChange(Math.min(pageCount, currentPage + 1))}
+            disabled={currentPage === pageCount}
           >
-            <span className="sr-only">Next</span>
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </a>
-        </li> */}
+            <MdKeyboardArrowRight size={24} />
+          </button>
+        </li>
       </ul>
     </nav>
   );

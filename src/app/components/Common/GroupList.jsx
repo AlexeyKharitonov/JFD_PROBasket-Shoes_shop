@@ -3,36 +3,25 @@ import { SelectedTitleContext } from "../../hooks/useTitle";
 import WorkTimes from "../UI/WorkTimes";
 
 const GroupList = ({ category, onTitleSelect, activeElement }) => {
-  // console.log(
-  //   category
-  //     .filter((el) => el._id === activeElement)
-  //     .map((el) => el._id)
-  //     .join("")
-  // );
-  // console.log(category);
-
   return (
-    <>
+    <div className="flex flex-col items-center justify-center">
       <WorkTimes />
-      <div>
+      <div className="rounded-3xl border-0 py-4 px-5 bg-[#EEEEEE]">
         {category.map((el, index) => (
-          <a
+          <button
             key={el._id}
-            // href="#!"
-            aria-current="true"
-            className={`block w-11/12 cursor-pointer rounded-3xl p-4 transition duration-500 focus:ring-0 dark:hover:bg-cyan-600 dark:hover:text-neutral-200 dark:focus:bg-cyan-600 dark:focus:text-neutral-200 ${
-              // el._id === activeElement
+            className={`block w-full cursor-pointer text-left rounded-3xl p-4 transition duration-500 focus:ring-0 dark:hover:bg-[#07c0ea] dark:hover:text-neutral-300 dark:focus:bg-[#07B3EA] dark:focus:text-neutral-200 whitespace-nowrap ${
               el === activeElement
-                ? "bg-cyan-600 text-neutral-200"
+                ? "bg-[#07B3EA] text-neutral-200"
                 : "hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500"
             }`}
             onClick={() => onTitleSelect(el)}
           >
             {el.title}
-          </a>
+          </button>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,22 +1,22 @@
 import React from "react";
-import Russ from "/Russ.jpg";
+import Rose from "/Rose.jpg";
 import { NavLink } from "react-router-dom";
 import TextField from "../Common/TextField";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
-      <div className="hidden sm:block">
+    <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
+      <div className="hidden sm:block   ">
         <img
-          src={Russ}
+          src={Rose}
           alt="Russ"
-          className="w-full h-full opacity-90 object-cover rounded-sm blurry-shadow"
+          className="w-full h-full opacity-70 object-cover rounded-sm blurry-shadow"
         />
       </div>
 
-      <div className=" flex flex-col justify-start my-16">
+      <div className="flex flex-col justify-start my-16">
         <form className="max-w-[450px] w-full mx-auto bg-[#EEEEEE] p-8 rounded-xl shadow-2xl">
-          <h2 className="text-5xl font-semibold text-left py-3">Вход</h2>
+          <h2 className="text-5xl font-semibold text-left py-3">Регистрация</h2>
           <TextField
             name="Login"
             label="Логин"
@@ -24,10 +24,24 @@ const LoginPage = () => {
             placeholder="Логин"
           />
           <TextField
+            name="Email"
+            label="Электронная почта"
+            // value="name"
+            placeholder="Электронная почта"
+          />
+          <TextField
             name="Password"
             label="Пароль"
+            type="password"
             // value="name"
             placeholder="Пароль"
+          />
+          <TextField
+            name="Phone"
+            label="Номер телефона"
+            type="number"
+            // value="phone"
+            placeholder="Номер телефона"
           />
           <button className="border w-full rounded-3xl mt-5 mb-3 py-3 text-base font-semibold  bg-[#0f6fd1] hover:bg-[#0b5eb3] text-white hover:text-gray-300">
             Войти
@@ -38,9 +52,9 @@ const LoginPage = () => {
               меня
             </p>
             <div className="flex flex-col items-end underline">
-              <NavLink to="/auth/register">
-                <p>Нет аккаунта?</p>
-                <p>Зарегистрируйтесь</p>
+              <NavLink to="/auth/login">
+                <p>Есть аккаунт?</p>
+                <p>Войдите</p>
               </NavLink>
             </div>
           </div>
@@ -50,4 +64,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

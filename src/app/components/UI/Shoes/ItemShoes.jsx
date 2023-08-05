@@ -1,48 +1,64 @@
 import { Link } from "react-router-dom";
-import styles from "./Shoes.module.scss";
+import Badge from "../../Common/Badge";
+import FormatPrice from "../../Common/FormatPrice";
+import CardWrapper from "../../Common/Wrappers/CardWrapper";
+import FavoriteButton from "../../Common/Buttons/FavoriteButton";
+import Button from "../../Common/Buttons/Button";
 
 const ItemShoes = ({ sneaker }) => {
   return (
-    <div className="shadow-[0_35px_60px_-15px_rgba(0,0,0,0.9)] shadow-indigo-900/40">
+    <CardWrapper>
       <div key={sneaker.id}>
-        <div
-          className={styles.image}
-          style={{ backgroundImage: `url(${sneaker.image})` }}
-        />
-        <div className={styles.info}>
-          <div className="flex">
-            <div className="w-2/3 m-1 p-0">
-              <div className="text-xl mb-1.5 mt-1 mx font-black flex justify-center items-center">
-                {sneaker.name}
-              </div>
-              <p className="opacity-75 text-lg mb-2.5 mx-6 text-blue-800 border-2 border-gray-300 p-2 rounded-md flex justify-center items-center">
-                {new Intl.NumberFormat("ru-RU", {
-                  style: "currency",
-                  currency: "RUB",
-                }).format(sneaker.price)}
-              </p>
-            </div>
-            <div className="w-1/3 m-3">
-              <Link to={`/product/${sneaker.id}`}>
-                <button className="opacity-50 relative inline-flex items-center justify-center p-0.5 my-2 mr-2 overflow-hidden text-lg font-black text-gray-900 rounded-3xl group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-black focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-blue-600">
-                  <span className=" relative px-3 py-5 transition-all ease-in duration-75 bg-white dark:bg-state-50 rounded-md group-hover:bg-opacity-0">
-                    Подробнее
+        <div className="flex">
+          <div className="overflow-hidden">
+            <div className="flex flex-col items-center justify-center ">
+              <img
+                src={sneaker.image}
+                alt="sneaker"
+                className="w-full object-cover mb-1.5 rounded-t-3xl"
+              />
+              {/* <div className="w-full flex flex-col items-center justify-center mt-0 p-2  rounded-shadow"> */}
+              <div className="w-full flex flex-col items-center justify-center mt-0 p-2 rounded-shadow">
+                <h1 className="text-3xl font-bold mb-2 justify-center">
+                  {sneaker.name}
+                </h1>
+                {/* <div className="flex justify-center w-full items-center mt-2"> */}
+                <div className="flex justify-center w-full items-center mt-1 mb-5">
+                  {/* <span className="flex-wrap items-center"> */}
+                  <span>
+                    {sneaker.tags.map((el, index) => (
+                      <Badge key={index}>{el}</Badge>
+                    ))}
                   </span>
-                </button>
-              </Link>
+                  <FormatPrice price={sneaker.price} />
+                </div>
+                <div className="flex justify-between w-full mx-2 px-6 mt-0 mb-3">
+                  <Link to={`/product/${sneaker.id}`}>
+                    <Button
+                      classes={
+                        "bg-gradient-to-r px-4 from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-200"
+                      }
+                    >
+                      Подробнее
+                    </Button>
+                  </Link>
+                  <Link to="/">
+                    <Button
+                      classes={
+                        "text-decoration px-7 border-2 border-gray-200 bg-white text-[#4361EE] hover:bg-[#07B3EA] "
+                      }
+                    >
+                      Купить
+                    </Button>
+                  </Link>
+                  <FavoriteButton />
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* <p className="mb-2.5">
-            {new Intl.NumberFormat("ru-RU", {
-              style: "currency",
-              currency: "RUB",
-            }).format(sneaker.price)}
-          </p>
-          <button className={styles.btn}>Подробная информация</button> */}
         </div>
       </div>
-    </div>
+    </CardWrapper>
   );
 };
 
