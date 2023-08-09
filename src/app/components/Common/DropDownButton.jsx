@@ -8,7 +8,7 @@ const plans = ["По умолчанию", "Цена: по возрастанию
 const DropDownButton = () => {
   const [selected, setSelected] = useState(plans[0]);
   return (
-    <div className=" mb-3 mt-6 mr-8 flex justify-end">
+    <div className="mb-3 mt-6 mr-8 flex justify-end">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-3xl bg-[#1B8DA6] bg-opacity-100 px-12 py-3 text-sm font-medium text-white hover:bg-opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -65,18 +65,6 @@ const DropDownButton = () => {
                                   >
                                     {plan}
                                   </RadioGroup.Label>
-                                  {/* <RadioGroup.Description
-                                    as="span"
-                                    className={`inline ${
-                                      checked ? "text-sky-100" : "text-gray-500"
-                                    }`}
-                                  >
-                                    <span>
-                                      {plan.ram}/{plan.cpus}
-                                    </span>{" "}
-                                    <span aria-hidden="true">&middot;</span>{" "}
-                                    <span>{plan.disk}</span>
-                                  </RadioGroup.Description> */}
                                 </div>
                               </div>
                               {checked && (

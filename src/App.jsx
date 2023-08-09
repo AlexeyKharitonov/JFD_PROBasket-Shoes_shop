@@ -1,16 +1,17 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainWrapper from "./app/components/Common/Wrappers/MainWrapper";
-import { AppBar as Header } from "./app/layouts/AppBar";
-import MainPage from "./app/screens/MainPage";
-import About from "./app/layouts/About";
-import Footer from "./app/layouts/Footer";
-import Detail from "./app/screens/ProductDetail";
+import { AppBar as Header } from "./app/Layouts/AppBar";
+import About from "./app/Pages/About";
+import Footer from "./app/Layouts/Footer";
 import { SelectedTitleProvider } from "./app/hooks/useTitle";
-import Basket from "./app/layouts/Basket";
+//!!!!потом сделаю это перенос все в Auth компонент
 import LoginPage from "./app/components/UI/LoginPage";
 import RegisterPage from "./app/components/UI/RegisterPage";
-import FavoritePage from "./app/screens/FavoritePage";
+import Order from "./app/Pages/Order";
+import Home from "./app/Pages/Home";
+import Product from "./app/Pages/Product";
+import Auth from "./app/Pages/Auth";
 
 function App() {
   return (
@@ -22,16 +23,14 @@ function App() {
             path="/"
             element={
               <SelectedTitleProvider value={"Simple"}>
-                <MainPage />
+                <Home />
               </SelectedTitleProvider>
             }
           />
-          <Route path="/product/:id" element={<Detail />} />
+          <Route path="/product/:id" element={<Product />} />
           <Route path="/about" element={<About />} />
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/register" element={<RegisterPage />} />
-          <Route path="/favorite" element={<FavoritePage />} />
-          <Route path="/basket" element={<Basket />} />
+          <Route path="/auth/:type" element={<Auth />} />
+          <Route path="/order" element={<Order />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

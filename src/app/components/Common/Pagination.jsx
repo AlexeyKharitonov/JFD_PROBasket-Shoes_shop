@@ -16,7 +16,7 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
           >
-            <MdKeyboardArrowLeft size={24} />
+            <MdKeyboardArrowLeft size={21} />
           </button>
         </li>
         {pages.map((page) => (
@@ -24,7 +24,7 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
             <button
               className={
                 page === currentPage
-                  ? "focus:outline-none z-10 w-10 px-4 py-2 leading-tight text-white font-semibold border-2 border-transparent rounded-md shadow-md bg-[#0f6fd1] hover:bg-cyan-700 transition duration-200 ease-in-out flex items-center justify-center"
+                  ? "focus:outline-none z-10 w-10 px-4 py-2 leading-tight text-white font-semibold border-2 border-transparent rounded-md shadow-md bg-[#4361EE] hover:bg-cyan-700 transition duration-200 ease-in-out flex items-center justify-center"
                   : "focus:outline-none w-10 px-4 py-2 leading-tight text-gray-500 bg-white border-2 border-gray-300 rounded-md shadow-md hover:bg-gray-300 hover:text-black transition duration-200 ease-in-out flex items-center justify-center"
               }
               onClick={() => onPageChange(page)}
@@ -39,7 +39,7 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
             onClick={() => onPageChange(Math.min(pageCount, currentPage + 1))}
             disabled={currentPage === pageCount}
           >
-            <MdKeyboardArrowRight size={24} />
+            <MdKeyboardArrowRight size={21} />
           </button>
         </li>
       </ul>
