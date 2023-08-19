@@ -1,0 +1,15 @@
+[
+  { "id": "e2dad0fb2fdb6b5e9773ceb1", "title": "Все товары в наличии" },
+  { "id": "e2dad0fb2fdb6b5e9773ceb2", "title": "Баскетбольные кроссовки Nike" },
+  {
+    "id": "e2dad0fb2fdb6b5e9773ceb3",
+    "title": "Баскетбольные кроссовки Jordan"
+  },
+  {
+    "id": "e2dad0fb2fdb6b5e9773ceb4",
+    "title": "Баскетбольные кроссовки Adidas"
+  },
+  { "id": "e2dad0fb2fdb6b5e9773ceb5", "title": "Баскетбольные кроссовки Puma" },
+  { "id": "e2dad0fb2fdb6b5e9773ceb6", "title": "Джерси игроков НБА" },
+  { "id": "e2dad0fb2fdb6b5e9773ceb7", "title": "Мячи" }
+]
