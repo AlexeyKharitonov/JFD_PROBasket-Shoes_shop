@@ -19,7 +19,7 @@ const schema = new Schema(
       required: true,
     },
     sizes: {
-      type: [Number],
+      type: [String],
       required: true,
     },
     photos: {

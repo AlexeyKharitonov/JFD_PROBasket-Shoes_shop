@@ -13,11 +13,12 @@ const authService = {
   register: async (payload) => {
     const { data } = await httpAuth.post(`signUp`, {
       ...payload,
-      returnSecureToken: true,
+      // returnSecureToken: true,
     });
     return data;
   },
   login: async (payload) => {
+    console.log("payload in authService", payload);
     const { data } = await httpAuth.post(`signInWithPassword`, payload);
     return data;
   },

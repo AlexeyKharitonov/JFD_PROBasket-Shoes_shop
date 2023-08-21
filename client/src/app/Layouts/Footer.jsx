@@ -15,22 +15,22 @@ const Footer = () => {
         <ul className="flex justify-center space-x-6">
           <li>
             <a href="https://www.instagram.com/">
-              <BsInstagram size={27} />
+              <BsInstagram size={30} />
             </a>
           </li>
           <li>
             <a href="https://vk.com/im">
-              <SlSocialVkontakte size={27} />
+              <SlSocialVkontakte size={30} />
             </a>
           </li>
           <li>
             <a href="https://www.whatsapp.com/">
-              <BsWhatsapp size={27} />
+              <BsWhatsapp size={30} />
             </a>
           </li>
           <li>
             <a href="https://t.me/">
-              <SiTelegram size={27} />
+              <SiTelegram size={30} />
             </a>
           </li>
         </ul>

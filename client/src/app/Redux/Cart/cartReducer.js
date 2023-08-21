@@ -19,8 +19,9 @@ const cartSlice = createSlice({
     // }
     // УДАЛИТЬ ИЗ КОРЗИНЫ
     removeProductFromCart: (state, action) => {
+      console.log(action.payload);
       state.productInCart = state.productInCart.filter(
-        (product) => product.id !== action.payload
+        (product) => product._id !== action.payload
       );
     },
     // УДАЛИТЬ ВСЕ ИЗ КОРЗИНЫ

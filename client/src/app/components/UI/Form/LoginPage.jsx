@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Russ from "/Russ.jpg";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import TextField from "../../Common/Inputs/TextField";
 import Button from "../../Common/Buttons/Button";
+import { useDispatch } from "react-redux";
+import {
+  allErrors,
+  getIsLoggedIn,
+  login,
+  getUsersLoadingStatus,
+  setIsAdmin,
+} from "../../../Redux/Users/usersReducer";
+import { Loader as Spinner } from "../../Common/Loader";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  const [isAdminChecked, setIsAdminChecked] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handlelick = () => {
     navigate("/auth/register");
   };
+  const currentError = useSelector(allErrors());
+  const isLoggedIn = useSelector(getIsLoggedIn());
+  const loadingStatus = useSelector(getUsersLoadingStatus());
+  // const adminStatus = useSelector(getIsAdminStatus());
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+      reset();
+    }
+  }, [isLoggedIn]);
 
   const {
     register,
@@ -20,13 +44,27 @@ const LoginPage = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    //Временно
-    alert(`твой ник ${data.Login}`);
-    reset();
-    navigate("/");
+  useEffect(() => {
+    if (errors.login && errors.password) {
+      toast.error("Пожалуйста, войдите", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
+  }, [errors]);
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    dispatch(setIsAdmin(isAdminChecked));
+    dispatch(login(data));
   };
+
+  const handleAdmin = ({ target }) => {
+    setIsAdminChecked(target.checked);
+  };
+
+  if (loadingStatus) {
+    return <Spinner />;
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
@@ -45,7 +83,7 @@ const LoginPage = () => {
         >
           <h2 className="text-5xl font-semibold text-left py-2">Вход</h2>
           <TextField
-            name="Login"
+            name="login"
             label="Логин"
             placeholder="Логин"
             register={register}
@@ -56,11 +94,11 @@ const LoginPage = () => {
                 message: "Логин должен содержать минимум 4 символа",
               },
             }}
-            error={errors.Login}
+            error={errors.login}
           />
 
           <TextField
-            name="Password"
+            name="password"
             label="Пароль"
             placeholder="Пароль"
             type="password"
@@ -72,7 +110,7 @@ const LoginPage = () => {
                 message: "Пароль должен содержать минимум 8 символов",
               },
             }}
-            error={errors.Password}
+            error={errors.password}
           />
           <Button
             classes={
@@ -82,14 +120,23 @@ const LoginPage = () => {
           >
             Войти
           </Button>
+          {currentError && (
+            <p className="text-red-600 text-sm my-2 px-1.5">{currentError}</p>
+          )}
+
           <div className="flex justify-between items-start text-base">
             <p className="flex items-center">
-              <input className="mr-1.5 w-4 h-4" type="checkbox" />
+              <input
+                className="mr-1.5 w-4 h-4"
+                type="checkbox"
+                checked={isAdminChecked}
+                onChange={handleAdmin}
+              />
               Режим администратора
             </p>
-            <div className="flex flex-col items-end underline">
+            <div className="flex opacity-80 text-[#0f6fd1] hover:text-[#0b5eb3] font-semibold flex-col items-end underline decoration-[#0f6fd1]">
               <button onClick={handlelick}>
-                <p>Нет аккаунта?</p>
+                <p>У вас нет аккаунта?</p>
                 <p>Зарегистрируйтесь</p>
               </button>
             </div>

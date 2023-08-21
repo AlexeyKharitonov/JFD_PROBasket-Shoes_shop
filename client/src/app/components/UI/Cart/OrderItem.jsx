@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 const OrderItem = () => {
   const products = useSelector((state) => state.cart.productInCart);
   const sizes = useSelector((state) => state.cart.selectedSize);
+  console.log(sizes);
   const count = useSelector((state) => state.cart.count);
   const dispatch = useDispatch();
   const [, setCounter1] = useState(1);
@@ -72,7 +73,7 @@ const OrderItem = () => {
                 </span>
               </span>
               <span className="text-center mr-8 font-semibold px-2.5 py-1 rounded-xl text-white bg-gray-500 w-[106px]">
-                {sizes[product.id]} разм.
+                {sizes[product._id]} разм.
               </span>
               <span className="text-center mr-8 text-lg ">
                 <span className="underline">{product.price}</span>
@@ -80,7 +81,7 @@ const OrderItem = () => {
               </span>
               <Button
                 type="danger"
-                handleClick={() => handleDelete(product.id)}
+                handleClick={() => handleDelete(product._id)}
               >
                 Удалить
               </Button>

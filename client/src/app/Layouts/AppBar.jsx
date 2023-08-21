@@ -1,9 +1,36 @@
-import { SiNike, SiJordan, SiAdidas } from "react-icons/si";
-import NavBarWrapper from "../components/Common/Wrappers/NavBarWrapper";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import localStorageService from "../Services/localStorage.service";
+import NavBarWrapper from "../components/Common/Wrappers/NavBarWrapper";
 import CartBlock from "../components/UI/Cart/CartBlock";
 
+import { SiNike, SiJordan, SiAdidas } from "react-icons/si";
+import {
+  getUsersLoadingStatus,
+  getIsLoggedIn,
+  getUserById,
+} from "../Redux/Users/usersReducer";
+import NavProfile from "../components/UI/NavProfile";
+import { RxAvatar } from "react-icons/rx";
+import { FaUserCircle } from "react-icons/fa";
+import { BsPersonBoundingBox } from "react-icons/bs";
+
 const AppBar = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const userId = localStorageService.getUserId();
+  const user = useSelector(getUserById(userId));
+  const loading = useSelector(getUsersLoadingStatus());
+
+  const isLoggedIn = useSelector(getIsLoggedIn());
+
+  //это нужно, чтобы при логине не происходило setIsProfileOpen(true)
+  useEffect(() => {
+    if (userId) {
+      setIsProfileOpen(false);
+    }
+  }, [userId]);
+
   return (
     <NavBarWrapper>
       <nav className="p-1 bg-[#0f6fd1]">
@@ -48,13 +75,36 @@ const AppBar = () => {
               >
                 О магазине
               </NavLink>
-              <NavLink
-                to="/auth/login"
-                className="hover:text-gray-400 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
-              >
-                Войти
-              </NavLink>
-              {/* ТУТ БУДЕТ КОМПОНЕНТ ДОБАВЛЕНИЯ ТОВАРА, ДОСТУПНЫЙ ТОЛЬКО АДМИНИСТРАТОРУ */}
+              <div className="flex items-center lg:text-base md:text-sm sm:text-xs">
+                {isLoggedIn ? (
+                  <>
+                    <button onClick={() => setIsProfileOpen(true)}>
+                      <div className="flex flex-col items-center">
+                        <BsPersonBoundingBox
+                          size={28}
+                          className="text-[#FCCA3D] hover:text-yellow-600 mb-1  mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                        />
+                        <div className="hover:text-gray-400 text-white  mr-2 md:mr-4 lg:mr-9 whitespace-nowrap border-2 rounded-lg p-0.5 border-gray-300">
+                          {!loading && user.login}
+                        </div>
+                      </div>
+                    </button>
+                    <NavProfile
+                      isOpen={isProfileOpen}
+                      user={user ? user.login : ""}
+                      loading={loading}
+                      onClose={() => setIsProfileOpen(false)}
+                    />
+                  </>
+                ) : (
+                  <NavLink
+                    to="/auth/login"
+                    className="hover:text-gray-400 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                  >
+                    Войти
+                  </NavLink>
+                )}
+              </div>
               <NavLink className="hover:text-gray-400 text-white font-medium">
                 <CartBlock />
               </NavLink>

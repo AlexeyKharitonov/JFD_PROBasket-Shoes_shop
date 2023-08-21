@@ -2,7 +2,7 @@ import WorkTimes from "../UI/WorkTimes";
 
 const GroupList = ({ category, onTitleSelect, activeElement }) => {
   return (
-    <div className="flex flex-col items-center justify-center mb-12">
+    <div className="flex flex-col items-center justify-center mb-10">
       <WorkTimes />
       <div className="rounded-3xl border-0 py-4 px-5 bg-[#EEEEEE] text">
         {category.map((el, index) => (

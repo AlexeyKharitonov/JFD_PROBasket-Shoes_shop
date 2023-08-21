@@ -1,15 +1,28 @@
 import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { Dialog, Transition } from "@headlessui/react";
 import { calcTotalPrice } from "../../../../utils/calcTotalPrice";
 import ProductName from "../ProductName";
 import Button from "../../../Common/Buttons/Button";
+import { getIsLoggedIn } from "../../../../Redux/Users/usersReducer";
 
 const ModalCart = ({ items, isOpen, onClose, onDelete, sizes }) => {
-  // const newSizes = Object.values(sizes);
+  const isLoggedIn = useSelector(getIsLoggedIn());
+
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/order");
+    if (isLoggedIn) {
+      navigate("/order");
+    } else {
+      navigate("/auth/register");
+      toast.error("Пожалуйста, зарегистрируйтесь или войдите в систему", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
     onClose();
   };
 
@@ -53,12 +66,12 @@ const ModalCart = ({ items, isOpen, onClose, onDelete, sizes }) => {
                         <div>
                           {items.map((item) => (
                             <ProductName
-                              key={item.id}
+                              key={item._id}
                               name={item.name}
                               price={item.price}
                               onDelete={onDelete}
-                              id={item.id}
-                              size={sizes[item.id]}
+                              id={item._id}
+                              size={sizes[item._id]}
                             />
                           ))}
                         </div>
@@ -78,7 +91,7 @@ const ModalCart = ({ items, isOpen, onClose, onDelete, sizes }) => {
                       </>
                     ) : (
                       <div className="text-base flex justify-center">
-                        В Корзине пока ничего нет.&#x1F614;
+                        В Корзине пока ничего нет.😔🏀
                       </div>
                     )}
                   </Dialog.Title>

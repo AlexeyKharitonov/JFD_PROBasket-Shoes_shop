@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
-const TokenService = require("../services/token.service");
 const tokenService = require("../services/token.service");
 const router = express.Router({ mergeParams: true });
 
@@ -16,6 +15,11 @@ const router = express.Router({ mergeParams: true });
 router.post("/signUp", [
   check("email", "Некорректный email").isEmail(),
   check("password", "Минимальная длина пароля 8 символов").isLength({ min: 8 }),
+  check("login", "Некорректный login").isLength({ min: 4 }),
+  check("phone", "Некорректный phone").matches(
+    /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/
+  ),
+
   async (req, res) => {
     try {
       const errors = validationResult(req);
@@ -29,15 +33,36 @@ router.post("/signUp", [
         });
       }
 
-      const { email, password } = req.body;
+      const { login, email, phone, password } = req.body;
 
-      //проверка а есть ли пользователь с таким email, тут User у меня не создан
+      //проверка а есть ли пользователь с таким email
       const existingUser = await User.findOne({ email });
-
       if (existingUser) {
         return res.status(400).json({
           error: {
             message: "EMAIL_EXISTS",
+            code: 400,
+          },
+        });
+      }
+
+      //проверка а есть ли пользователь с таким login
+      const existingUserByLogin = await User.findOne({ login });
+      if (existingUserByLogin) {
+        return res.status(400).json({
+          error: {
+            message: "LOGIN_EXISTS",
+            code: 400,
+          },
+        });
+      }
+
+      // Проверка на существующего пользователя с таким номером телефона
+      const existingUserByPhone = await User.findOne({ phone });
+      if (existingUserByPhone) {
+        return res.status(400).json({
+          error: {
+            message: "PHONE_EXISTS",
             code: 400,
           },
         });
@@ -50,12 +75,13 @@ router.post("/signUp", [
         password: hashedPassword,
       });
 
-      const tokens = TokenService.generate({ _id: newUser._id });
+      const tokens = tokenService.generate({ _id: newUser._id });
 
-      await TokenService.save(newUser._id, tokens.refreshToken);
+      await tokenService.save(newUser._id, tokens.refreshToken);
 
       res.status(201).send({ ...tokens, userId: newUser._id });
     } catch (error) {
+      console.log(error);
       res.status(500).json({
         message: "На серевере произошла ошибка. Попробуйте позже",
       });
@@ -70,7 +96,8 @@ router.post("/signUp", [
 //5. return data
 router.post(
   "/signInWithPassword",
-  check("email", "Email некорректный").normalizeEmail().isEmail(),
+  // check("email", "Email некорректный").normalizeEmail().isEmail(),
+  check("login", "Некорректный login").isLength({ min: 4 }),
   check("password", "Пароль не может быть пустым").exists(),
   [
     async (req, res) => {
@@ -85,14 +112,14 @@ router.post(
           });
         }
 
-        const { email, password } = req.body;
+        const { login, password } = req.body;
 
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ login });
 
         if (!existingUser) {
           return res.status(400).send({
             error: {
-              message: "EMAIL_NOT_FOUND",
+              message: "LOGIN_NOT_FOUND",
               code: 400,
             },
           });

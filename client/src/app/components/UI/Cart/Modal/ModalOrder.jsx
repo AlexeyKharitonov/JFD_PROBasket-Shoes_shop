@@ -4,7 +4,7 @@ import Button from "../../../Common/Buttons/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteAllFromCart } from "../../../../Redux/Cart/cartReducer";
-import George from "/George.jpg";
+import Dunk from "/Dunk.jpg";
 
 const ModalOrder = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
@@ -40,25 +40,28 @@ const ModalOrder = ({ isOpen, onClose }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mt-[75px] mr-[550px]  w-full max-w-lg rounded-2xl bg-[#F2F2F2] p-1.5  pb-3 text-center align-middle shadow-xl transition-all">
+              <Dialog.Panel className="mt-[60px] mr-[550px] px-12 w-full max-w-lg rounded-2xl bg-[#F2F2F2] p-1.5  pb-3 text-center align-middle shadow-xl transition-all">
                 <div
                   className="overflow-y-auto text-center justify-center items-center text-2xl leading-8 overflow-x-hidden mb-1"
                   style={{ maxHeight: "75vh" }}
                 >
                   <div className="flex justify-center">
                     <img
-                      src={George}
+                      src={Dunk}
                       alt="George"
                       className="w-auto mb-3 h-96 opacity-80 object-cover rounded-xl blurry-shadow "
                     />
                   </div>
                   <div className="px-10 text-center mb-4">
                     <Dialog.Title>
-                      Спасибо за заказ! Мы скоро свяжемся с вами&#x1F604;
+                      Спасибо за заказ! Мы скоро свяжемся с вами😄🏀🔥
                     </Dialog.Title>
                   </div>
                   <Button
-                    type="primary"
+                    classes={
+                      "border  w-full mt-0 mb-1 bg-[#0f6fd1] hover:bg-[#0b5eb3] text-white hover:text-gray-300"
+                    }
+                    size="btnMedium"
                     handleClick={handleClick}
                     useFlex={false}
                   >

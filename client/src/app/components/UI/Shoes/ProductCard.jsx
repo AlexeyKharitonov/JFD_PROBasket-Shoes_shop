@@ -11,10 +11,15 @@ import {
 } from "../../../Redux/Cart/cartReducer";
 import SizesList from "../../Common/SizesList";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import { isAdmin } from "../../../Redux/Users/usersReducer";
 
 const ProductCard = ({ sneaker, className }) => {
   const { _id, photos, sizes, name, tags, price } = sneaker;
   const products = useSelector((state) => state.cart.productInCart);
+  const isCurrentAdmin = useSelector(isAdmin());
+  console.log("isCurrentAdmin", isCurrentAdmin);
+
   const isProductInCart = products.some((product) => product._id === _id);
   const dispatch = useDispatch();
 
@@ -25,14 +30,18 @@ const ProductCard = ({ sneaker, className }) => {
     event.preventDefault();
     if (!selectedSize) {
       setSizeNotSelected(true);
+      toast.error("Пожалуйста, выберете размер", {
+        position: toast.POSITION.TOP_CENTER,
+      });
       return;
     } else {
       setSizeNotSelected(false);
+      toast.dismiss();
     }
 
     if (isProductInCart) {
-      dispatch(removeProductFromCart(id));
-      dispatch(deleteSelectedSize(id));
+      dispatch(removeProductFromCart(_id));
+      dispatch(deleteSelectedSize(_id));
       setSelectedSize(null);
     } else {
       dispatch(setProductInCart(sneaker));
@@ -42,10 +51,10 @@ const ProductCard = ({ sneaker, className }) => {
   const handleSizeSelect = (sizeOfProduct) => {
     if (sizeOfProduct === selectedSize) {
       setSelectedSize(null);
-      dispatch(deleteSelectedSize(id));
+      dispatch(deleteSelectedSize(_id));
     } else {
       setSelectedSize(sizeOfProduct);
-      dispatch(selectSize({ productId: id, size: sizeOfProduct }));
+      dispatch(selectSize({ productId: _id, size: sizeOfProduct }));
     }
   };
 
@@ -91,8 +100,7 @@ const ProductCard = ({ sneaker, className }) => {
           ))}
         </span>
         <div className="flex justify-end w-full px-3 mt-0 mb-2">
-          {/* ЕЩЕ ТУТ БУДЕТ КНОПКА РЕДАКТИРОВАТЬ, КОТОРАЯ ВИДНА ТОЛЬКО  
-          АДМИНИСТРАТОРУ */}
+          {isCurrentAdmin && <Button type="white">Редактировать</Button>}
           <Button
             type={isProductInCart ? "white" : "primary"}
             handleClick={(event) => handleBuy(event)}

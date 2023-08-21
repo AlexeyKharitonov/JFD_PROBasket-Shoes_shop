@@ -2,6 +2,7 @@ import React from "react";
 import { TiDeleteOutline } from "react-icons/ti";
 
 const ProductName = ({ name, price, onDelete, id, size }) => {
+  console.log(size);
   return (
     <div className="flex justify-between mb-4 items-center">
       <span className="w-[125px] truncate mr-4">{name}</span>{" "}

@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import newRose from "/newRose.jpg";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import TextField from "../../Common/Inputs/TextField";
 import Button from "../../Common/Buttons/Button";
+import {
+  signUp,
+  getUsersLoadingStatus,
+  allErrors,
+} from "../../../Redux/Users/usersReducer";
+import { Loader as Spinner } from "../../Common/Loader";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handlelick = () => {
     navigate("/auth/login");
   };
+  const loadingStatus = useSelector(getUsersLoadingStatus());
+  const currentError = useSelector(allErrors());
+  console.log(currentError);
 
   const {
     register,
@@ -20,10 +32,24 @@ const RegisterPage = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    if (errors.login && errors.password) {
+      toast.error("Пожалуйста, зарегистрируйтесь", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
+  }, [errors]);
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    dispatch(signUp(data));
     reset();
+    // navigate("/");
   };
+
+  if (loadingStatus) {
+    return <Spinner />;
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
@@ -42,7 +68,7 @@ const RegisterPage = () => {
         >
           <h2 className="text-5xl font-semibold text-left py-2">Регистрация</h2>
           <TextField
-            name="Login"
+            name="login"
             label="Логин"
             placeholder="Логин"
             register={register}
@@ -53,10 +79,10 @@ const RegisterPage = () => {
                 message: "Логин должен содержать минимум 4 символа",
               },
             }}
-            error={errors.Login}
+            error={errors.login}
           />
           <TextField
-            name="Email"
+            name="email"
             label="Электронная почта"
             placeholder="example@example.ru"
             register={register}
@@ -67,10 +93,10 @@ const RegisterPage = () => {
                 message: "Неверный формат электронной почты",
               },
             }}
-            error={errors.Email}
+            error={errors.email}
           />
           <TextField
-            name="Phone"
+            name="phone"
             label="Номер телефона"
             placeholder="+7 (9XX)-XXX-XX-XX"
             type="text"
@@ -83,10 +109,10 @@ const RegisterPage = () => {
                 message: "Неверный формат электронной почты",
               },
             }}
-            error={errors.Phone}
+            error={errors.phone}
           />
           <TextField
-            name="Password"
+            name="password"
             label="Пароль"
             placeholder="Пароль"
             type="password"
@@ -98,7 +124,7 @@ const RegisterPage = () => {
                 message: "Пароль должен содержать минимум 8 символов",
               },
             }}
-            error={errors.Password}
+            error={errors.password}
           />
           <Button
             classes={
@@ -113,9 +139,9 @@ const RegisterPage = () => {
               <input className="mr-1.5 w-4 h-4" type="checkbox" /> Режим
               администратора
             </p>
-            <div className="flex flex-col items-end underline">
+            <div className="flex opacity-80 flex-col text-[#0f6fd1] hover:text-[#0b5eb3] font-semibold decoration-[#0f6fd1] items-end underline">
               <button onClick={handlelick}>
-                <p>Есть аккаунт?</p>
+                <p>Уже есть аккаунт?</p>
                 <p>Войдите</p>
               </button>
             </div>

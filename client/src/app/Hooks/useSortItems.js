@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 
 export const useSortedItems = (items = []) => {
-  console.log(items);
   const [sortedType, setSortedType] = useState("По новизне");
 
   const sortedItems = useMemo(() => {

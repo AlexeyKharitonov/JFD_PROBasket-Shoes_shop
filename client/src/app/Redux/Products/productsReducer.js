@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import productService from "../../Services/products.service";
+import { transformPath } from "../../utils/transform";
 
 const productsSlice = createSlice({
   name: "products",
@@ -35,7 +36,11 @@ export const loadAllProducts = () => async (dispatch) => {
   dispatch(productsRequested());
   try {
     const data = await productService.fetchAll();
-    dispatch(productsRecived(data));
+    const transformData = data.map((el) => ({
+      ...el,
+      photos: el.photos.map(transformPath),
+    }));
+    dispatch(productsRecived(transformData));
   } catch (error) {
     dispatch(productsRequestFailed(error.message));
   }

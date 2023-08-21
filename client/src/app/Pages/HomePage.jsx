@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import GroupList from "../components/Common/GroupList";
 import Shoes from "../components/UI/Shoes/Shoes";
 import Pagination from "../components/Common/Pagination";
-// import { fetchAll } from "../API/DATA";
 import Doncic from "/Doncic.jpg";
 import { Loader as Spinner } from "../components/Common/Loader";
-// import { fetchCategoryProduct } from "../API/CategoryProduct";
 import SearchNotFound from "../components/UI/SearchNotFound";
 import SearchInput from "../components/Common/Inputs/SearchInput";
 import DropDownSort from "../components/Common/DropDownButton";
@@ -25,7 +23,6 @@ import {
 const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  // const [category, setCategory] = useState([]);
   const [selectedElement, setSelectedElement] = useState(null);
   const pageSize = 4;
   const dispatch = useDispatch();
@@ -68,7 +65,6 @@ const HomePage = () => {
       setSelectedElement(undefined);
     }
   };
-  console.log(product);
 
   const { sortedItems, setSortedType } = useSortedItems(product ? product : []);
 
@@ -132,7 +128,7 @@ const HomePage = () => {
           searchQuery={searchQuery}
         />
         <div className="flex flex-col  sm:flex-row mt-1">
-          <div className="w-full  lg: mr-2 sm:w-2/3 md:w-1/3 pr-0 sm:mr-8 py-5">
+          <div className="w-full  lg: mr-2 sm:w-2/3 md:w-1/3  sm:mr-8 py-3.5">
             <GroupList
               activeElement={selectedElement}
               category={category}
@@ -142,7 +138,7 @@ const HomePage = () => {
               <img
                 src={Doncic}
                 alt="Doncic"
-                className="w-4/5 opacity-60 mb-1 rounded-2xl  shadow-lg shadow-indigo-900/40"
+                className="w-[350px] opacity-60 mb-1 rounded-2xl  shadow-lg shadow-indigo-900/40"
               />
             </div>
           </div>

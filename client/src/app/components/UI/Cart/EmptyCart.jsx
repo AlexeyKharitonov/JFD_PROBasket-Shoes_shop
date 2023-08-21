@@ -6,7 +6,7 @@ const EmptyCart = () => {
     <ContentWrapper>
       <CardWrapper>
         <div className="mt-12 text-center py-20 text-3xl  text-neutral-800">
-          В Корзине пока ничего нет.&#x1F614;
+          В Корзине пока ничего нет.😔🏀
         </div>
       </CardWrapper>
     </ContentWrapper>

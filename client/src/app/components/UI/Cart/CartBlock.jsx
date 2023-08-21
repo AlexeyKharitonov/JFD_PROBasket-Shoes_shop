@@ -25,7 +25,8 @@ const CartBlock = () => {
       <div className="relative lg:text-base md:text-sm sm:text-xs">
         <span onClick={openModal}>
           <IoMdCart
-            size={40}
+            //Можно и другую иконку
+            size={44}
             className="text-[#FCCA3D] hover:text-yellow-600"
           />
         </span>
