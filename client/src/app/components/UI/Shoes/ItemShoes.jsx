@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 import CardWrapper from "../../Common/Wrappers/CardWrapper";
 import ProductCard from "./ProductCard";
 
@@ -19,6 +19,9 @@ const ItemShoes = ({ sneaker }) => {
       </div>
     </CardWrapper>
   );
+};
+ItemShoes.propTypes = {
+  sneaker: PropTypes.object.isRequired,
 };
 
 export default ItemShoes;

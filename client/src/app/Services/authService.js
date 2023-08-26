@@ -4,9 +4,6 @@ import config from "../config.json";
 
 const httpAuth = axios.create({
   baseURL: config.apiEndPoint + "/auth/",
-  // params: {
-  //   key: process.env.REACT_APP_FIREBASE_KEY,
-  // },
 });
 
 const authService = {
@@ -18,8 +15,8 @@ const authService = {
     return data;
   },
   login: async (payload) => {
-    console.log("payload in authService", payload);
     const { data } = await httpAuth.post(`signInWithPassword`, payload);
+    localStorageService.setAdmin(data.isAdmin);
     return data;
   },
   refresh: async () => {

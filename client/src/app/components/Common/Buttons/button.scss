@@ -36,6 +36,21 @@
   border-color: #d5d5d5;
 }
 
+.btn-gray {
+  padding: 38px;
+  border: 2px solid white;
+  // background-color: #f67440;
+  background-color: #a9a9a9;
+  color: white;
+}
+
+.btn-gray:hover {
+  // background-color: #d56030;
+  background-color: #9a9a9a;
+  color: #f5f5f5;
+  border-color: #f5f5f5;
+}
+
 .btn-medium {
   border-width: 100%;
   margin-top: 5rem;
@@ -52,8 +67,7 @@
 .btn-white:hover,
 .btn-danger:hover,
 .btn-primary:hover,
-.btn-medium:hover {
-  // box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
-  // transform: translateY(-3px);
+.btn-medium:hover,
+.btn-gray:hover {
   transition: all 0.3s;
 }

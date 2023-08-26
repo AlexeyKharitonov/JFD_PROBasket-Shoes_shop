@@ -3,7 +3,7 @@ import httpService from "./http.service";
 const categoriesEndPoint = "categories/";
 
 const categoriesService = {
-  fetchAll: async () => {
+  get: async () => {
     const { data } = await httpService.get(categoriesEndPoint);
     return data;
   },

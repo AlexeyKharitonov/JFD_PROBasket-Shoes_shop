@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Badge from "../../Common/Badge";
 import Button from "../../Common/Buttons/Button";
@@ -6,19 +7,20 @@ import FormatPrice from "../../Common/FormatPrice";
 import {
   removeProductFromCart,
   setProductInCart,
-  selectSize,
-  deleteSelectedSize,
+  selectSizeInCart,
+  removeSizeFromCart,
 } from "../../../Redux/Cart/cartReducer";
+import { removeProduct } from "../../../Redux/Products/productsReducer";
 import SizesList from "../../Common/SizesList";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-import { isAdmin } from "../../../Redux/Users/usersReducer";
+import localStorageService from "../../../Services/localStorage.service";
+import { RiDeleteBack2Fill } from "react-icons/ri";
 
-const ProductCard = ({ sneaker, className }) => {
+const ProductCard = ({ sneaker }) => {
   const { _id, photos, sizes, name, tags, price } = sneaker;
   const products = useSelector((state) => state.cart.productInCart);
-  const isCurrentAdmin = useSelector(isAdmin());
-  console.log("isCurrentAdmin", isCurrentAdmin);
+  const isAdmin = localStorageService.getIsAdmin();
 
   const isProductInCart = products.some((product) => product._id === _id);
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const ProductCard = ({ sneaker, className }) => {
     event.preventDefault();
     if (!selectedSize) {
       setSizeNotSelected(true);
-      toast.error("Пожалуйста, выберете размер", {
+      toast.error("Пожалуйста, выберете размер товара", {
         position: toast.POSITION.TOP_CENTER,
       });
       return;
@@ -41,7 +43,7 @@ const ProductCard = ({ sneaker, className }) => {
 
     if (isProductInCart) {
       dispatch(removeProductFromCart(_id));
-      dispatch(deleteSelectedSize(_id));
+      dispatch(removeSizeFromCart(_id));
       setSelectedSize(null);
     } else {
       dispatch(setProductInCart(sneaker));
@@ -51,22 +53,40 @@ const ProductCard = ({ sneaker, className }) => {
   const handleSizeSelect = (sizeOfProduct) => {
     if (sizeOfProduct === selectedSize) {
       setSelectedSize(null);
-      dispatch(deleteSelectedSize(_id));
+      dispatch(removeSizeFromCart(_id));
     } else {
       setSelectedSize(sizeOfProduct);
-      dispatch(selectSize({ productId: _id, size: sizeOfProduct }));
+      dispatch(selectSizeInCart({ _id, size: sizeOfProduct }));
     }
+  };
+
+  const handleDelete = (event, id) => {
+    event.stopPropagation();
+    event.preventDefault();
+    dispatch(removeProduct(id));
   };
 
   return (
     <div>
-      <NavLink to={`/product/${sneaker._id}`}>
+      <NavLink to={`/product/${sneaker._id}`} className="relative ">
         <img
           key={_id}
           src={photos[0]}
           alt="product"
-          className="w-full object-cover mb-1 rounded-t-3xl "
+          className={`w-full object-cover mb-1 rounded-t-3xl ${
+            isAdmin ? "opacity-50" : ""
+          }`}
         />
+
+        {isAdmin && (
+          <>
+            <RiDeleteBack2Fill
+              size={72}
+              onClick={(event) => handleDelete(event, _id)}
+              className="absolute top-4 right-4 cursor-pointer text-[#D96259] hover:text-[#C8524A] hover:scale-105 transition-all "
+            />
+          </>
+        )}
       </NavLink>
       <div className="w-full flex flex-col items-center justify-center mt-0 p-0 pb-0 rounded-shadow">
         <NavLink to={`/product/${sneaker._id}`}>
@@ -99,18 +119,38 @@ const ProductCard = ({ sneaker, className }) => {
             </SizesList>
           ))}
         </span>
-        <div className="flex justify-end w-full px-3 mt-0 mb-2">
-          {isCurrentAdmin && <Button type="white">Редактировать</Button>}
-          <Button
-            type={isProductInCart ? "white" : "primary"}
-            handleClick={(event) => handleBuy(event)}
-          >
-            {isProductInCart ? "Убрать из корзины" : "В корзину"}
-          </Button>
+        <div
+          className={`flex ${
+            isAdmin ? "justify-between" : "justify-end"
+          }  items-center w-full px-3 mt-0 mb-2`}
+        >
+          {isAdmin ? (
+            <>
+              <NavLink to={`/edit/${sneaker._id}`}>
+                <Button type="gray">Изменить</Button>
+              </NavLink>
+              <Button
+                type={isProductInCart ? "white" : "primary"}
+                handleClick={(event) => handleBuy(event)}
+              >
+                {isProductInCart ? "Убрать" : "В корзину"}
+              </Button>
+            </>
+          ) : (
+            <Button
+              type={isProductInCart ? "white" : "primary"}
+              handleClick={(event) => handleBuy(event)}
+            >
+              {isProductInCart ? "Убрать" : "В корзину"}
+            </Button>
+          )}
         </div>
       </div>
     </div>
   );
+};
+ProductCard.propTypes = {
+  sneaker: PropTypes.object.isRequired,
 };
 
 export default ProductCard;

@@ -1,5 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { RadioGroup } from "@headlessui/react";
 import Button from "./Buttons/Button";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -11,31 +12,56 @@ const options = [
 
 const DropDownSort = ({ setSortType }) => {
   const [selected, setSelected] = useState(options[0]);
-  const [upArrow, setUpArrow] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  // const [upArrow, setUpArrow] = useState(false);
 
   const handleSortChange = (plan) => {
     setSelected(plan);
     setSortType(plan);
   };
-  const toggleArrow = () => {
-    setUpArrow((prevState) => !prevState);
-  };
+  // const toggleArrow = () => {
+  //   setUpArrow((prevState) => !prevState);
+  // };
+
+  useEffect(() => {
+    if (menuOpen) {
+      // console.log("Menu opened");
+    } else {
+      // console.log("Menu closed");
+    }
+  }, [menuOpen]);
 
   return (
     <div className="mb-0 mt-0 mr-0 flex justify-end z-20">
       <Menu as="div" className="relative inline-block text-left">
-        <div>
-          <Menu.Button className="leading-normal" onClick={toggleArrow}>
+        <Menu.Button
+          role="button"
+          tabIndex={0}
+          // className={`leading-normal hover:scale-105 transition duration-500`}
+          className="leading-normal transition duration-500 hover:scale-105"
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+            setIsClicked(true);
+            setTimeout(() => setIsClicked(false), 200);
+          }}
+        >
+          <div
+            className={`transform transition-transform duration-300 ${
+              isClicked ? "scale-105" : "scale-102"
+            }`}
+          >
             <Button type="white">
               {selected}
-              {upArrow ? (
+              {menuOpen ? (
                 <IoIosArrowUp className="ml-1 mt-1" size={19} />
               ) : (
                 <IoIosArrowDown className="ml-1 mt-1" size={19} />
               )}
             </Button>
-          </Menu.Button>
-        </div>
+          </div>
+        </Menu.Button>
+
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -44,6 +70,7 @@ const DropDownSort = ({ setSortType }) => {
           leave="transition ease-in duration-75"
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
+          afterLeave={() => setMenuOpen(false)}
         >
           <Menu.Items className="absolute right-0 mt-0 w-72 origin-top-right divide-y divide-gray-100 rounded-3xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="w-full px-4 py-4">
@@ -124,5 +151,8 @@ function CheckIcon(props) {
     </svg>
   );
 }
+DropDownSort.propTypes = {
+  setSortType: PropTypes.func.isRequired,
+};
 
 export default DropDownSort;

@@ -1,16 +1,19 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { Dialog, Transition } from "@headlessui/react";
 import { calcTotalPrice } from "../../../../utils/calcTotalPrice";
 import ProductName from "../ProductName";
 import Button from "../../../Common/Buttons/Button";
 import { getIsLoggedIn } from "../../../../Redux/Users/usersReducer";
 
-const ModalCart = ({ items, isOpen, onClose, onDelete, sizes }) => {
+const ModalCart = ({ isOpen, onClose, onDelete }) => {
+  const items2 = useSelector((state) => state.cart.productInCart);
+  const sizes = useSelector((state) => state.cart.selectedSize);
+
   const isLoggedIn = useSelector(getIsLoggedIn());
 
   const navigate = useNavigate();
@@ -39,7 +42,7 @@ const ModalCart = ({ items, isOpen, onClose, onDelete, sizes }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-0" />
+            <div className="fixed inset-0 bg-black bg-opacity-75" />
           </Transition.Child>
 
           <div className="fixed inset-0 flex items-start justify-end p-4">
@@ -61,26 +64,31 @@ const ModalCart = ({ items, isOpen, onClose, onDelete, sizes }) => {
                     as="h3"
                     className="text-base text-gray-500 font-medium leading-6 "
                   >
-                    {items.length > 0 ? (
+                    {items2.length !== 0 ? (
                       <>
                         <div>
-                          {items.map((item) => (
-                            <ProductName
-                              key={item._id}
-                              name={item.name}
-                              price={item.price}
-                              onDelete={onDelete}
-                              id={item._id}
-                              size={sizes[item._id]}
-                            />
-                          ))}
+                          {items2.map((item) => {
+                            const productSize = sizes.find(
+                              (s) => s._id === item._id
+                            )?.size;
+                            return (
+                              <ProductName
+                                key={item._id}
+                                name={item.name}
+                                price={item.price}
+                                onDelete={onDelete}
+                                id={item._id}
+                                size={productSize}
+                              />
+                            );
+                          })}
                         </div>
                         <div className="border-t-2 border-[#0F6FD1] border-opacity-75 my-4 flex justify-between">
                           <span className="text-lg font-bold text-gray-700 mt-4">
                             Итого:
                           </span>
                           <span className="text-lg font-bold text-gray-700 mt-4">
-                            {calcTotalPrice(items)} руб.
+                            {items2 ? calcTotalPrice(items2) : 0} руб.
                           </span>
                         </div>
                         <div className="mt-2 flex justify-center">
@@ -103,6 +111,11 @@ const ModalCart = ({ items, isOpen, onClose, onDelete, sizes }) => {
       </Transition>
     </>
   );
+};
+ModalCart.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ModalCart;

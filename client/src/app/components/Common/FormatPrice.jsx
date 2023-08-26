@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const FormatPrice = ({ price }) => {
   const format = (price) => {
     return new Intl.NumberFormat("ru-RU", {
@@ -13,6 +14,9 @@ const FormatPrice = ({ price }) => {
       </span>
     </div>
   );
+};
+FormatPrice.propTypes = {
+  price: PropTypes.number.isRequired,
 };
 
 export default FormatPrice;

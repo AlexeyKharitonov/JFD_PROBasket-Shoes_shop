@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./button.scss";
 
@@ -19,6 +20,7 @@ const Button = ({
     "btn-white": type === "white",
     "btn-primary": type === "primary",
     "btn-danger": type === "danger",
+    "btn-gray": type === "gray",
     "btn-medium": size === "btnMedium",
   });
   return (
@@ -29,6 +31,13 @@ const Button = ({
       {children}
     </button>
   );
+};
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  size: PropTypes.string,
+  handleClick: PropTypes.func,
+  classes: PropTypes.string,
+  useFlex: PropTypes.bool,
 };
 
 export default Button;

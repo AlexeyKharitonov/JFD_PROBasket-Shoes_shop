@@ -3,6 +3,7 @@ import authService from "../../Services/authService";
 import localStorageService from "../../Services/localStorage.service";
 import { generateAuthError } from "../../utils/generateAuthError";
 import userService from "../../Services/userService";
+import { deleteAllFromCart } from "../Cart/cartReducer";
 
 const initialState = localStorageService.getAccessToken()
   ? {
@@ -11,7 +12,7 @@ const initialState = localStorageService.getAccessToken()
       error: null,
       auth: { userId: localStorageService.getUserId() },
       isLoggedIn: true,
-      isAdmin: false,
+      isAdmin: localStorageService.getIsAdmin(),
       dataLoaded: false,
     }
   : {
@@ -20,7 +21,7 @@ const initialState = localStorageService.getAccessToken()
       error: null,
       auth: null,
       isLoggedIn: false,
-      isAdmin: false,
+      isAdmin: localStorageService.getIsAdmin(),
       dataLoaded: false,
     };
 
@@ -44,32 +45,22 @@ const usersSlice = createSlice({
       state.auth = action.payload;
       state.isLoggedIn = true;
     },
-    //новое поле установки статуса админа
+    //поле установки статуса админа
     setAdminStatus: (state, action) => {
       state.isAdmin = action.payload;
     },
     authRequestFailed: (state, action) => {
       state.error = action.payload;
     },
-    // userCreated: (state, action) => {
-    //   if (!Array.isArray(state.entities)) {
-    //     state.entities = [];
-    //   }
-    //   state.entities.push(action.payload);
-    //   state.isLoading = false;
-    // },
+    authResetErrors: (state) => {
+      state.error = null;
+    },
     userLoggedOut: (state) => {
       state.entities = null;
       state.isLoggedIn = false;
       state.auth = null;
       state.dataLoaded = false;
     },
-    // userUpdated: (state, action) => {
-    //   const userIndex = state.entities.findIndex(
-    //     (u) => u._id === action.payload._id
-    //   );
-    //   state.entities[userIndex] = action.payload;
-    // },
     authRequested: (state) => {
       state.error = null;
     },
@@ -85,12 +76,10 @@ const {
   authRequestFailed,
   userLoggedOut,
   setAdminStatus,
-  // userUpdated,
+  authResetErrors,
 } = actions;
 
 const authRequested = createAction("users/authRequested");
-const userUpdateRequested = createAction("users/userUpdateRequested");
-// const updateUserFailed = createAction("users/updateUserFailed");
 
 export const login = (payload) => async (dispatch) => {
   const { login, password } = payload;
@@ -100,8 +89,6 @@ export const login = (payload) => async (dispatch) => {
     localStorageService.setTokens(data);
     await dispatch(loadUsersList());
     dispatch(authRequestSuccess({ userId: data.userId }));
-
-    // history.push(redirect);
   } catch (error) {
     const { code, message } = error.response.data.error;
     if (code === 400) {
@@ -113,45 +100,38 @@ export const login = (payload) => async (dispatch) => {
   }
 };
 
+//Регистрация
 export const signUp = (payload) => async (dispatch) => {
   dispatch(authRequested());
+  dispatch(setAdminStatus(payload.isAdmin));
+  localStorageService.setAdmin(payload.isAdmin);
   try {
     const data = await authService.register(payload);
     localStorageService.setTokens(data);
     dispatch(authRequestSuccess({ userId: data.userId }));
-    // history.push("/users");
 
     await dispatch(loadUsersList());
   } catch (error) {
-    dispatch(authRequestFailed(error.message));
+    const { code, message } = error.response.data.error;
+    if (code === 400) {
+      const errorMessage = generateAuthError(message);
+      dispatch(authRequestFailed(errorMessage));
+    } else {
+      dispatch(authRequestFailed(error.message));
+    }
   }
 };
 
 export const logOut = () => (dispatch) => {
   localStorageService.removeAuthData();
+  localStorageService.removeAdmin();
+  localStorageService.clearAllCart();
+  dispatch(deleteAllFromCart());
+
   dispatch(userLoggedOut());
-  // через localStorage потом надо удалить админку!!!!!
 };
-
-export const setIsAdmin = (isAdminChecked) => (dispatch) => {
-  dispatch(setAdminStatus(isAdminChecked));
-};
-
-//ПРОСТО ПРОВЕРКА АДМИН ИЛИ НЕТ
-
-export const isAdmin = () => (state) => state.users.isAdmin;
 
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
-
-// export const updateUser = (payload) => async (dispatch) => {
-//   dispatch(userUpdateRequested());
-//   try {
-//     const { content } = await userService.update(payload);
-//     dispatch(userUpdated(content));
-//   } catch (error) {
-//     dispatch(updateUserFailed(error.message));
-//   }
-// };
 
 export function loadUsersList() {
   return async (dispatch) => {
@@ -186,4 +166,5 @@ export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
 // export const getCurrentUserId = () => (state) => state.users.auth.userId;
 // export const getAuthErrors = () => (state) => state.users.error;
 
+export { authResetErrors };
 export default usersReducer;

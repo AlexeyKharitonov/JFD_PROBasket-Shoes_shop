@@ -19,13 +19,14 @@ const OrderPage = () => {
     setModalOpen(true);
   };
 
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+
+  const allProductsCount = products.reduce(
+    (acc, product) => acc + product.count,
+    0
+  );
 
   if (!products.length) return <EmptyCart />;
   return (
@@ -36,10 +37,10 @@ const OrderPage = () => {
       <ContentWrapper>
         <CardWrapper>
           <div className="my-10 p-4 ">
-            <div className="flex justify-between px-8 mb-10 items-center border-b-4 py-4  border-[#0f6fd1] ">
+            <div className="flex justify-between px-8 mb-10 items-center border-b-4 py-4 rounded-lg  border-[#0f6fd1] ">
               <div className="my-0 p-4 w-4/4 text-xl font-bold ">
-                У Вас {completionOVerb(products.length)}{" "}
-                {completionOfWord(products.length)} на общую сумму{" "}
+                У Вас {completionOVerb(allProductsCount)}{" "}
+                {completionOfWord(allProductsCount)} на общую сумму{" "}
                 {calcTotalPrice(products)} руб.
               </div>
               <span>

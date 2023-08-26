@@ -3,9 +3,6 @@ const Products = require("../models/Products");
 const auth = require("../middleware/auth.middleware");
 const router = express.Router({ mergeParams: true });
 
-//Нужен будет метод patch для обновления продукта
-//И тут будет middleware использоваться, чтобы редактировать мог бы только админ
-//auth
 router.get("/", async (req, res) => {
   try {
     const list = await Products.find();
@@ -18,16 +15,37 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Products.findById(id);
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({
-      message: "На серевере произошла ошибка. Попробуйте позже",
-    });
-  }
-});
+router
+  .route("/:productId")
+  .patch(auth, async (req, res) => {
+    try {
+      const { productId } = req.params;
+      const updatedProduct = await Products.findByIdAndUpdate(
+        productId,
+        req.body,
+        {
+          new: true,
+        }
+      );
+
+      res.send(updatedProduct);
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
+      });
+    }
+  })
+  .delete(auth, async (req, res) => {
+    try {
+      const { productId } = req.params;
+
+      await Products.findByIdAndRemove(productId);
+      return res.send(null);
+    } catch (error) {
+      res.status(500).json({
+        message: "На сервере произошла ошибка. Попробуйте позже",
+      });
+    }
+  });
 
 module.exports = router;

@@ -37,9 +37,11 @@ export const { reducer: categoriesReducer } = categoriesSlice;
 export const loadAllCategories = () => async (dispatch) => {
   dispatch(categoriesRequested());
   try {
-    const data = await categoriesService.fetchAll();
+    const data = await categoriesService.get();
+    data.sort((a, b) => a.category_id - b.category_id);
     dispatch(categoriesRecived(data));
   } catch (error) {
+    console.log(error.message);
     dispatch(categoriesRequestFailed(error.message));
   }
 };

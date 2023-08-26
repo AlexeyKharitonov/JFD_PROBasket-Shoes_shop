@@ -1,5 +1,5 @@
-import React from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 
@@ -25,7 +25,7 @@ const Slider = ({ product }) => {
   };
 
   return (
-    <div className="flex-1 max-w-[1400px] h-[400px] my-6 relative group opacity-90">
+    <div className="flex-1  max-w-[1400px] h-[400px] my-6 relative group opacity-90">
       {/* <h1 className="text-xl font-bold my-0 mb-1 p-2 text-center ">Галерея</h1> */}
       <div
         style={{
@@ -55,6 +55,9 @@ const Slider = ({ product }) => {
       </div>
     </div>
   );
+};
+Slider.propTypes = {
+  product: PropTypes.object.isRequired,
 };
 
 export default Slider;

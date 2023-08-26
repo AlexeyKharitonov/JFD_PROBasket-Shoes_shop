@@ -12,12 +12,13 @@ const router = express.Router({ mergeParams: true });
 // 4. create user
 // 5. generate tokens
 
+//Регистрация
 router.post("/signUp", [
   check("email", "Некорректный email").isEmail(),
   check("password", "Минимальная длина пароля 8 символов").isLength({ min: 8 }),
   check("login", "Некорректный login").isLength({ min: 4 }),
   check("phone", "Некорректный phone").matches(
-    /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/
+    /^\+7\s\(\d{3}\)\s\d{3}[-\s]?\d{2}[-\s]?\d{2}$/
   ),
 
   async (req, res) => {
@@ -33,7 +34,7 @@ router.post("/signUp", [
         });
       }
 
-      const { login, email, phone, password } = req.body;
+      const { login, email, phone, password, isAdmin } = req.body;
 
       //проверка а есть ли пользователь с таким email
       const existingUser = await User.findOne({ email });
@@ -79,9 +80,10 @@ router.post("/signUp", [
 
       await tokenService.save(newUser._id, tokens.refreshToken);
 
-      res.status(201).send({ ...tokens, userId: newUser._id });
+      res
+        .status(201)
+        .send({ ...tokens, userId: newUser._id, isAdmin: newUser.isAdmin });
     } catch (error) {
-      console.log(error);
       res.status(500).json({
         message: "На серевере произошла ошибка. Попробуйте позже",
       });
@@ -94,6 +96,8 @@ router.post("/signUp", [
 //3. compare hash password
 //4. generate token access refresh
 //5. return data
+
+//Вход
 router.post(
   "/signInWithPassword",
   // check("email", "Email некорректный").normalizeEmail().isEmail(),
@@ -142,7 +146,11 @@ router.post(
         const tokens = tokenService.generate({ _id: existingUser._id });
         await tokenService.save(existingUser._id, tokens.refreshToken);
 
-        res.status(200).send({ ...tokens, userId: existingUser._id });
+        res.status(200).send({
+          ...tokens,
+          userId: existingUser._id,
+          isAdmin: existingUser.isAdmin,
+        });
       } catch (error) {
         res.status(500).json({
           message: "На серевере произошла ошибка. Попробуйте позже",
@@ -153,6 +161,8 @@ router.post(
 );
 
 function isTokenInvalid(data, dbToken) {
+  console.log(data);
+
   return !data || !dbToken || data._id !== dbToken?.user?.toString();
 }
 
@@ -170,7 +180,6 @@ router.post("/token", async (req, res) => {
     const tokens = await tokenService.generate({ id: data._id });
 
     await tokenService.save(data._id, tokens.refreshToken);
-    console.log(tokens);
 
     res.status(200).send({ ...tokens, userId: data._id });
   } catch (error) {

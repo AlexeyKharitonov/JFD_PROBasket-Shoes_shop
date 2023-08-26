@@ -13,11 +13,9 @@ http.interceptors.request.use(
     const refreshToken = localStorageService.getRefreshToken();
     const isExpired = refreshToken && expiresDate < Date.now();
 
-    const containSlash = /\/$/gi.test(config.url);
-    //тут исправил
-    config.url = containSlash ? config.url.slice(0, -1) : config.url + ".json";
+    // const containSlash = /\/$/gi.test(config.url);
+    // config.url = containSlash ? config.url.slice(0, -1) : config.url + ".json";
 
-    //
     if (isExpired) {
       const data = await authService.refresh();
       localStorageService.setTokens(data);

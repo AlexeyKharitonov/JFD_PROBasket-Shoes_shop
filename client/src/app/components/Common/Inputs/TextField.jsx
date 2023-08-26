@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { BsEyeFill } from "react-icons/bs";
 import { BsEyeSlashFill } from "react-icons/bs";
 
@@ -38,9 +39,9 @@ const TextField = ({
               onClick={toggleShowPassword}
             >
               {showPassword ? (
-                <BsEyeFill size={27} color="#0f6fd1" />
+                <BsEyeFill size={25} color="#0f6fd1" />
               ) : (
-                <BsEyeSlashFill size={27} color="#0f6fd1" />
+                <BsEyeSlashFill size={25} color="#0f6fd1" />
               )}
             </button>
           </div>
@@ -51,6 +52,15 @@ const TextField = ({
       )}
     </div>
   );
+};
+TextField.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
+  register: PropTypes.func,
+  rules: PropTypes.object,
+  error: PropTypes.object,
 };
 
 export default TextField;

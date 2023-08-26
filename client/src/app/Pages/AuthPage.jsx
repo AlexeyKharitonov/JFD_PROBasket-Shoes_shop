@@ -1,15 +1,15 @@
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
-import LoginPage from "../components/UI/Form/LoginPage";
-import RegisterPage from "../components/UI/Form/RegisterPage";
+import LoginForm from "../components/UI/Form/LoginForm";
+import RegisterForm from "../components/UI/Form/RegisterForm";
 
 const AuthPage = () => {
   const { type } = useParams();
   switch (type) {
     case "login":
-      return <LoginPage />;
+      return <LoginForm />;
     case "register":
-      return <RegisterPage />;
+      return <RegisterForm />;
     default:
       return <Navigate to="/" />;
   }

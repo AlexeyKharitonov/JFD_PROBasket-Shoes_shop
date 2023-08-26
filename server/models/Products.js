@@ -2,6 +2,10 @@ const { Schema, model } = require("mongoose");
 
 const schema = new Schema(
   {
+    product_id: {
+      type: Number,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -32,6 +36,14 @@ const schema = new Schema(
     },
     playingThem: {
       type: [String],
+      required: true,
+    },
+    count: {
+      type: Number,
+      required: true,
+    },
+    youtube: {
+      type: String,
       required: true,
     },
   },

@@ -1,13 +1,15 @@
-export const completionOfWord = (wordLength) => {
-  //   const lastDigit = String(wordLength).slice(-1);
-  if (wordLength === 1) return `${wordLength} товар`;
-  if ([2, 3, 4].includes(wordLength) && ![12, 13, 14].includes(wordLength))
-    return `${wordLength} товара`;
-  return `${wordLength} товаров`;
+export const completionOfWord = (count) => {
+  const lastDigit = count % 10;
+  const secondToLastDigit = Math.floor(count / 10) % 10;
+  if (lastDigit === 1 && secondToLastDigit !== 1) return `${count} товар`;
+  if ([2, 3, 4].includes(lastDigit) && secondToLastDigit !== 1)
+    return `${count} товара`;
+  return `${count} товаров`;
 };
 
-//Окончание глагола - выбран/выбрано
-export const completionOVerb = (wordLength) => {
-  if ([1].includes(wordLength) && ![11].includes(wordLength)) return `выбран`;
+export const completionOVerb = (count) => {
+  const lastDigit = count % 10;
+  const secondToLastDigit = Math.floor(count / 10) % 10;
+  if (lastDigit === 1 && secondToLastDigit !== 1) return `выбран`;
   return `выбрано`;
 };

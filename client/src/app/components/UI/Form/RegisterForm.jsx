@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Russ from "/Russ.jpg";
+import newRose from "/newRose.jpg";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TextField from "../../Common/Inputs/TextField";
 import Button from "../../Common/Buttons/Button";
-import { useDispatch } from "react-redux";
 import {
   allErrors,
   getIsLoggedIn,
-  login,
   getUsersLoadingStatus,
-  setIsAdmin,
+  // setIsAdmin,
+  signUp,
+  authResetErrors,
 } from "../../../Redux/Users/usersReducer";
 import { Loader as Spinner } from "../../Common/Loader";
 import { toast } from "react-toastify";
+import BackButton from "../../Common/Buttons/BackButton";
+import { TbLogin } from "react-icons/tb";
 
-const LoginPage = () => {
+const RegisterForm = () => {
   const [isAdminChecked, setIsAdminChecked] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handlelick = () => {
-    navigate("/auth/register");
+    navigate("/auth/login");
   };
-  const currentError = useSelector(allErrors());
-  const isLoggedIn = useSelector(getIsLoggedIn());
   const loadingStatus = useSelector(getUsersLoadingStatus());
-  // const adminStatus = useSelector(getIsAdminStatus());
+  const isLoggedIn = useSelector(getIsLoggedIn());
+  const currentError = useSelector(allErrors());
+
+  useEffect(() => {
+    dispatch(authResetErrors());
+  }, [dispatch]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -45,8 +50,8 @@ const LoginPage = () => {
   });
 
   useEffect(() => {
-    if (errors.login && errors.password) {
-      toast.error("Пожалуйста, войдите", {
+    if (errors.login && errors.password && errors.phone && errors.email) {
+      toast.error("Пожалуйста, зарегистрируйтесь", {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
@@ -54,8 +59,11 @@ const LoginPage = () => {
 
   const onSubmit = (data, event) => {
     event.preventDefault();
-    dispatch(setIsAdmin(isAdminChecked));
-    dispatch(login(data));
+    // dispatch(setIsAdmin({ isAdminChecked }));
+    dispatch(signUp(data));
+
+    // reset();
+    // navigate("/");
   };
 
   const handleAdmin = ({ target }) => {
@@ -67,21 +75,24 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
-      <div className="hidden sm:block relative h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-2 w-full">
+      <div className="hidden md:block relative h-screen">
         <img
-          src={Russ}
-          alt="Russ"
-          className="absolute top-0 left-0 w-full h-full object-cover opacity-80 rounded-sm blurry-shadow"
+          src={newRose}
+          alt="Rose"
+          className="w-full h-full opacity-80 object-cover rounded-md blurry-shadow"
         />
       </div>
 
-      <div className=" flex flex-col justify-start my-28">
+      <div className="flex flex-col justify-start my-4">
+        <div className="ml-3.5">
+          <BackButton />
+        </div>
         <form
           className="max-w-[450px] w-full mx-auto bg-[#EEEEEE] p-8 rounded-xl shadow-2xl"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <h2 className="text-5xl font-semibold text-left py-2">Вход</h2>
+          <h2 className="text-5xl font-semibold text-left py-2">Регистрация</h2>
           <TextField
             name="login"
             label="Логин"
@@ -96,7 +107,36 @@ const LoginPage = () => {
             }}
             error={errors.login}
           />
-
+          <TextField
+            name="email"
+            label="Электронная почта"
+            placeholder="example@example.ru"
+            register={register}
+            rules={{
+              required: "Электронная почта обязательна",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Неверный формат электронной почты",
+              },
+            }}
+            error={errors.email}
+          />
+          <TextField
+            name="phone"
+            label="Номер телефона"
+            placeholder="+7 (9XX)-XXX-XX-XX"
+            type="text"
+            register={register}
+            rules={{
+              required: "Номер телефона обязателен",
+              pattern: {
+                value:
+                  /^(?:\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/,
+                message: "Неверный формат электронной почты",
+              },
+            }}
+            error={errors.phone}
+          />
           <TextField
             name="password"
             label="Пароль"
@@ -118,27 +158,31 @@ const LoginPage = () => {
             }
             size="btnMedium"
           >
-            Войти
+            Зарегистрироваться
           </Button>
           {currentError && (
             <p className="text-red-600 text-sm my-2 px-1.5">{currentError}</p>
           )}
-
           <div className="flex justify-between items-start text-base">
             <p className="flex items-center">
               <input
+                name="isAdmin"
                 className="mr-1.5 w-4 h-4"
+                {...register("isAdmin")}
                 type="checkbox"
                 checked={isAdminChecked}
                 onChange={handleAdmin}
               />
               Режим администратора
             </p>
-            <div className="flex opacity-80 text-[#0f6fd1] hover:text-[#0b5eb3] font-semibold flex-col items-end underline decoration-[#0f6fd1]">
-              <button onClick={handlelick}>
-                <p>У вас нет аккаунта?</p>
-                <p>Зарегистрируйтесь</p>
-              </button>
+            <div className="flex opacity-80 flex-col text-[#0f6fd1] hover:text-[#0b5eb3] font-semibold decoration-[#0f6fd1] items-end underline">
+              <span className="flex items-center">
+                <button onClick={handlelick} type="button">
+                  <p>Уже есть аккаунт?</p>
+                  <p>Войдите</p>
+                </button>
+                <TbLogin size={32} color="#F56344" className="ml-2" />
+              </span>
             </div>
           </div>
         </form>
@@ -147,4 +191,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterForm;

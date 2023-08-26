@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
+import PropTypes from "prop-types";
 import { Dialog, Transition } from "@headlessui/react";
 import Button from "../../../Common/Buttons/Button";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { deleteAllFromCart } from "../../../../Redux/Cart/cartReducer";
 import Dunk from "/Dunk.jpg";
 
-const ModalOrder = ({ isOpen, onClose }) => {
+const ModalOrder = ({ isOpen }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -27,7 +28,7 @@ const ModalOrder = ({ isOpen, onClose }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-0" />
+            <div className="fixed inset-0 bg-black bg-opacity-80" />
           </Transition.Child>
 
           <div className="fixed inset-0 flex items-start justify-end ">
@@ -40,21 +41,21 @@ const ModalOrder = ({ isOpen, onClose }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mt-[60px] mr-[550px] px-12 w-full max-w-lg rounded-2xl bg-[#F2F2F2] p-1.5  pb-3 text-center align-middle shadow-xl transition-all">
+              <Dialog.Panel className="mt-[36px] mr-[550px] px-12 w-full max-w-lg rounded-2xl bg-[#F2F2F2] p-2  pb-3 text-center align-middle shadow-xl transition-all">
                 <div
-                  className="overflow-y-auto text-center justify-center items-center text-2xl leading-8 overflow-x-hidden mb-1"
-                  style={{ maxHeight: "75vh" }}
+                  className="overflow-y-auto text-center justify-center items-center text-2xl font-semibold leading-8 overflow-x-hidden mb-1"
+                  style={{ maxHeight: "88vh" }}
                 >
                   <div className="flex justify-center">
                     <img
                       src={Dunk}
                       alt="George"
-                      className="w-auto mb-3 h-96 opacity-80 object-cover rounded-xl blurry-shadow "
+                      className="w-auto mb-5 h-[442px] opacity-80 object-cover rounded-xl blurry-shadow "
                     />
                   </div>
-                  <div className="px-10 text-center mb-4">
+                  <div className="px-10 text-center mb-4 ">
                     <Dialog.Title>
-                      Спасибо за заказ! Мы скоро свяжемся с вами😄🏀🔥
+                      Спасибо за заказ! Мы скоро свяжемся с вами😊🔥🏀
                     </Dialog.Title>
                   </div>
                   <Button
@@ -75,6 +76,9 @@ const ModalOrder = ({ isOpen, onClose }) => {
       </Transition>
     </>
   );
+};
+ModalOrder.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default ModalOrder;

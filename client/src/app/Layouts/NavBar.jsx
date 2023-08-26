@@ -1,23 +1,52 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import localStorageService from "../Services/localStorage.service";
 import NavBarWrapper from "../components/Common/Wrappers/NavBarWrapper";
 import CartBlock from "../components/UI/Cart/CartBlock";
-
-import { SiNike, SiJordan, SiAdidas } from "react-icons/si";
+import {
+  SiNike,
+  SiJordan,
+  SiAdidas,
+  SiPuma,
+  SiUnderarmour,
+} from "react-icons/si";
 import {
   getUsersLoadingStatus,
   getIsLoggedIn,
   getUserById,
 } from "../Redux/Users/usersReducer";
 import NavProfile from "../components/UI/NavProfile";
-import { RxAvatar } from "react-icons/rx";
-import { FaUserCircle } from "react-icons/fa";
 import { BsPersonBoundingBox } from "react-icons/bs";
 
-const AppBar = () => {
+const NavBar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const startOpacityAt = 70; // начать уменьшение прозрачности после прокрутки на 300px
+      const maxScrollY = 1000; // полная прозрачность при прокрутке на 1000px
+
+      if (currentScrollY <= startOpacityAt) {
+        setOpacity(1);
+      } else {
+        const newOpacity = Math.max(
+          1 - (currentScrollY - startOpacityAt) / (maxScrollY - startOpacityAt),
+          0.8
+        ); // 0.8 - минимальное значение прозрачности
+        setOpacity(newOpacity);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const userId = localStorageService.getUserId();
   const user = useSelector(getUserById(userId));
   const loading = useSelector(getUsersLoadingStatus());
@@ -33,7 +62,7 @@ const AppBar = () => {
 
   return (
     <NavBarWrapper>
-      <nav className="p-1 bg-[#0f6fd1]">
+      <nav className="p-1 bg-[#0f6fd1]" style={{ opacity: opacity }}>
         <div className="container mx-auto px-4 md:px-4 lg:px-8 sm:px-1">
           <div className="flex justify-between items-center text-base">
             <div className="flex items-center md:mx-2 lg:mx-5 text-gray-400">
@@ -41,10 +70,12 @@ const AppBar = () => {
                 <SiNike size={33} className="mr-1 ml-1" />
                 <SiJordan size={33} className="mr-1 ml-1 text-stone-700" />
                 <SiAdidas size={33} className="mr-4 ml-1" />
+                <SiPuma size={33} className="mr-4 ml-1 text-stone-700" />
+                <SiUnderarmour size={33} className="mr-2 ml-1" />
               </div>
               <NavLink to="/">
                 <div
-                  className="text-[#ffffff] ml-2 md:ml-4 lg:ml-6 mr-1 text-xl md:text-2xl lg:text-4xl font-bold hover:text-gray-400 whitespace-nowrap transition-all duration-1000 ease-in-out opacity-0 translate-y-5 animate-fadeIn"
+                  className="text-[#ffffff]  ml-2 md:ml-4 lg:ml-6 mr-1 text-xl md:text-2xl lg:text-4xl font-bold  hover:text-gray-400 whitespace-nowrap transition-all duration-1000 ease-in-out opacity-0 translate-y-5 animate-fadeIn"
                   style={{
                     fontFamily: "Questrial",
                     fontStyle: "italic",
@@ -65,15 +96,21 @@ const AppBar = () => {
             <div className="flex items-center lg:text-base md:text-sm sm:text-xs">
               <NavLink
                 to="/"
-                className="hover:text-gray-400 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
               >
                 Главная
               </NavLink>
               <NavLink
                 to="/about"
-                className="hover:text-gray-400 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
               >
                 О магазине
+              </NavLink>
+              <NavLink
+                to="/feedback"
+                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+              >
+                Отзывы
               </NavLink>
               <div className="flex items-center lg:text-base md:text-sm sm:text-xs">
                 {isLoggedIn ? (
@@ -84,7 +121,7 @@ const AppBar = () => {
                           size={28}
                           className="text-[#FCCA3D] hover:text-yellow-600 mb-1  mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
                         />
-                        <div className="hover:text-gray-400 text-white  mr-2 md:mr-4 lg:mr-9 whitespace-nowrap border-2 rounded-lg p-0.5 border-gray-300">
+                        <div className="hover:text-gray-400 hover:scale-101 text-white  mr-2 md:mr-4 lg:mr-9 whitespace-nowrap border-2 rounded-lg p-0.5 border-gray-300">
                           {!loading && user.login}
                         </div>
                       </div>
@@ -105,7 +142,7 @@ const AppBar = () => {
                   </NavLink>
                 )}
               </div>
-              <NavLink className="hover:text-gray-400 text-white font-medium">
+              <NavLink className=" text-white font-medium ">
                 <CartBlock />
               </NavLink>
             </div>
@@ -116,4 +153,4 @@ const AppBar = () => {
   );
 };
 
-export default AppBar;
+export default NavBar;

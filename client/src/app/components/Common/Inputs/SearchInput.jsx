@@ -1,8 +1,8 @@
+import PropTypes from "prop-types";
 const SearchInput = ({ onSearchQuery, searchQuery }) => {
   return (
-    <div className="relative max-w-screen-lg mx-auto">
-      {/* // <div className="relative "> */}
-      <div className="absolute top-0 left-4 w-6 h-full py-8 mt-1 flex text-gray-500 justify-center items-center">
+    <div className="relative max-w-screen-lg mx-auto hover:scale-101 transition duration-300">
+      <div className="absolute top-0 left-5 w-6 h-full py-8 mt-[7px] flex text-gray-500 justify-center items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -21,13 +21,17 @@ const SearchInput = ({ onSearchQuery, searchQuery }) => {
       <input
         type="text"
         name="searchQuery"
-        placeholder="Введите название интересуемого товара ..."
-        className="text-lg shadow-xl border-2 bg-gray-100 outline-0 rounded-2xl w-full py-2 px-12 mt-3 hover:border-gray-300 "
+        placeholder="Введите название интересуемого товара..."
+        className="text-xl shadow-xl border-4 border-gray-300 bg-gray-100 outline-0 rounded-2xl w-full py-2.5 px-12 mt-3 hover:border-gray-300 "
         onChange={onSearchQuery}
         value={searchQuery}
       />
     </div>
   );
+};
+SearchInput.propTypes = {
+  onSearchQuery: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string.isRequired,
 };
 
 export default SearchInput;

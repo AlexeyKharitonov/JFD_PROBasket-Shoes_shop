@@ -160,7 +160,7 @@ const HomePage = () => {
             )}
           </div>
         </div>
-        <div className="flex justify-center mt-7 mb-4">
+        <div className="flex justify-center mt-9 mb-6">
           <Pagination
             itemsCount={count}
             pageSize={pageSize}
