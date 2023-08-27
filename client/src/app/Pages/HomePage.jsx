@@ -10,7 +10,7 @@ import DropDownSort from "../components/Common/DropDownButton";
 import ContentWrapper from "../components/Common/Wrappers/ContentWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedProduct } from "../Redux/Selected/selectedProduct";
-import { useSortedItems } from "../hooks/useSortItems";
+import { useSortedItems } from "../Hooks/useSortItems";
 import {
   getAllProducts,
   getProductsLoadingStatus,
