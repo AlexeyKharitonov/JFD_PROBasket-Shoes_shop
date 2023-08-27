@@ -26,37 +26,37 @@ const FeedBack = () => {
           <CardWrapper>
             <div className="mx-auto justify-center text-base xl:text-2xl flex my-5 w-3/4  font-semibold max-w-screen-lg py-6">
               <div className="border-b-4 pb-1.5 opacity-70 border-[#0f6fd1] rounded-lg">
-                Ниже представлены отзывы наших довольных покупателей!😎🥰
+                Ниже представлены отзывы наших довольных покупателей!😎
               </div>
             </div>
           </CardWrapper>
           {feedBack.map((comment) => (
             <CardWrapper key={comment._id} w="w-3/4">
-              <div className="xl:flex justify-center py-0 px-4 pr-3 mb-6">
-                <div className="flex  py-20 pb-9 max-w-screen-lg">
-                  <div className="mr-8">
-                    <div className="w-80 h-60 bg-gray-300 flex items-center mt-6 justify-center text-xs text-gray-500">
+              <div className="py-0 px-4 pr-3 mb-6">
+                <div className="flex flex-col xl:flex-row items-center justify-center py-4 pb-9 max-w-screen-lg">
+                  <div className="mb-6 xl:mb-0 xl:mr-8">
+                    <div className="">
                       <img
                         src={comment.photo}
                         alt="ball"
-                        className="rounded-lg"
+                        className="hidden xl:block rounded-lg"
                       />
                     </div>
                   </div>
-                  <div className="">
+                  <div>
                     <div className="text-3xl font-semibold mb-4">
                       {comment.name_and_info}
                     </div>
-                    <div className=" text-gray-500 text-base mb-8 opacity-80">
+                    <div className="text-gray-500 text-base mb-8 opacity-80">
                       <Badge>{comment.order_date}</Badge>
                     </div>
-                    <span className="mb-6 flex">
+                    <span className="mb-6 flex justify-center xl:justify-start">
                       <StarsRate>{comment.rate}</StarsRate>
                     </span>
-                    <div className=" text-gray-600 pl-1 text-base mb-2.5">
+                    <div className="text-gray-600 pl-1 text-base mb-2.5">
                       Отзыв:
                     </div>
-                    <div className=" text-gray-800  bg-gray-200  px-5 py-1.5 rounded-2xl">
+                    <div className="text-gray-800 bg-gray-200 px-5 py-1.5 rounded-2xl">
                       {comment.comment}
                     </div>
                   </div>

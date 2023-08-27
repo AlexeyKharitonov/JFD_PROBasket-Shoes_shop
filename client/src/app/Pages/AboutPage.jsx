@@ -12,7 +12,7 @@ const AboutPage = () => {
         <BackButton />
       </div>
       <ContentWrapper className=" max-h-screen">
-        <div className="relative h-screen overflow-hidden">
+        <div className="relative h-[100vh] overflow-hidden">
           <img
             src={gsw}
             alt="gsw"
