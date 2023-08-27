@@ -27,7 +27,6 @@ const cartSlice = createSlice({
     },
     // УДАЛИТЬ ИЗ КОРЗИНЫ РАЗМЕР
     removeSizeFromCart: (state, action) => {
-      console.log(action.payload);
       state.selectedSize = state.selectedSize.filter(
         (size) => size._id !== action.payload
       );
@@ -78,7 +77,6 @@ export const { reducer: cartReducer } = cartSlice;
 //проверка есть ли что-то в корзине
 export const isCartEmptySelector = (state) => {
   const { productInCart, selectedSize } = state.cart;
-  console.log(productInCart.length === 0 && selectedSize.length === 0);
   return productInCart.length === 0 && selectedSize.length === 0;
 };
 

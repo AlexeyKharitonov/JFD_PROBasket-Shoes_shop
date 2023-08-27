@@ -161,8 +161,6 @@ router.post(
 );
 
 function isTokenInvalid(data, dbToken) {
-  console.log(data);
-
   return !data || !dbToken || data._id !== dbToken?.user?.toString();
 }
 

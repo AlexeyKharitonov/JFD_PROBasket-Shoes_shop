@@ -14,6 +14,8 @@ const SelectField = ({
   onChange,
   error,
 }) => {
+  // console.log("opts", opts);
+  // console.log("value", value);
   const options = opts.map((opt) => ({ label: opt, value: opt }));
 
   const selectedOptions = value

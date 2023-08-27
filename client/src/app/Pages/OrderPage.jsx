@@ -1,6 +1,6 @@
 import React from "react";
 import ContentWrapper from "../components/Common/Wrappers/ContentWrapper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { calcTotalPrice } from "../utils/calcTotalPrice";
 import OrderItem from "../components/UI/Cart/OrderItem";
 import CardWrapper from "../components/Common/Wrappers/CardWrapper";
@@ -10,13 +10,19 @@ import ModalOrder from "../components/UI/Cart/Modal/ModalOrder";
 import { useState } from "react";
 import EmptyCart from "../components/UI/Cart/EmptyCart";
 import BackButton from "../components/Common/Buttons/BackButton";
+import { deleteAllFromCart } from "../Redux/Cart/cartReducer";
 
 const OrderPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const products = useSelector((state) => state.cart.productInCart);
+  const dispatch = useDispatch();
 
   const handleClock = () => {
     setModalOpen(true);
+  };
+
+  const handleDeleteAll = () => {
+    dispatch(deleteAllFromCart());
   };
 
   const handleCloseModal = () => {
@@ -43,8 +49,19 @@ const OrderPage = () => {
                 {completionOfWord(allProductsCount)} на общую сумму{" "}
                 {calcTotalPrice(products)} руб.
               </div>
-              <span>
-                <Button type="white" handleClick={handleClock}>
+              <span className="flex">
+                <Button
+                  type="purple"
+                  handleClick={handleDeleteAll}
+                  classes="mr-4 hover:scale-105"
+                >
+                  Очистить корзину
+                </Button>
+                <Button
+                  type="white"
+                  handleClick={handleClock}
+                  classes=" hover:scale-105"
+                >
                   Оформить заказ
                 </Button>
                 <ModalOrder isOpen={isModalOpen} onClose={handleCloseModal} />

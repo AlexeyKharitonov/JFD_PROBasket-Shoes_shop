@@ -26,7 +26,6 @@ const Slider = ({ product }) => {
 
   return (
     <div className="flex-1  max-w-[1400px] h-[400px] my-6 relative group opacity-90">
-      {/* <h1 className="text-xl font-bold my-0 mb-1 p-2 text-center ">Галерея</h1> */}
       <div
         style={{
           backgroundImage: `url(${product.photos[currentIndex]})`,

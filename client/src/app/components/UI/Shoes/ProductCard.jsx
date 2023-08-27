@@ -20,13 +20,16 @@ import { RiDeleteBack2Fill } from "react-icons/ri";
 const ProductCard = ({ sneaker }) => {
   const { _id, photos, sizes, name, tags, price } = sneaker;
   const products = useSelector((state) => state.cart.productInCart);
-  const isAdmin = localStorageService.getIsAdmin();
+  const sizesInCart = useSelector((state) => state.cart.selectedSize);
 
+  const isAdmin = localStorageService.getIsAdmin();
   const isProductInCart = products.some((product) => product._id === _id);
   const dispatch = useDispatch();
 
   const [selectedSize, setSelectedSize] = useState(null);
   const [sizeNotSelected, setSizeNotSelected] = useState(false);
+
+  const productSizeInCart = sizesInCart.find((item) => item._id === _id);
 
   const handleBuy = (event) => {
     event.preventDefault();
@@ -47,6 +50,11 @@ const ProductCard = ({ sneaker }) => {
       setSelectedSize(null);
     } else {
       dispatch(setProductInCart(sneaker));
+      toast.error("Товар добавлен в корзину", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        className: "custom-toast-error",
+        progressClassName: "bg-[#0f6fd1]",
+      });
     }
   };
 
@@ -111,7 +119,10 @@ const ProductCard = ({ sneaker }) => {
           {sizes.map((size, index) => (
             <SizesList
               key={index}
-              selected={size === selectedSize}
+              // selected={size === selectedSize}
+              selected={
+                size === (productSizeInCart ? productSizeInCart.size : null)
+              }
               onClick={() => handleSizeSelect(size)}
               sizeNotSelected={sizeNotSelected}
             >

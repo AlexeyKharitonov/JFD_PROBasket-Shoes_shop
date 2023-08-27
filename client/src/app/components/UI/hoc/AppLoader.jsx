@@ -5,6 +5,7 @@ import { loadAllProducts } from "../../../Redux/Products/productsReducer";
 import { loadAllCategories } from "../../../Redux/Categories/categoriesReducer";
 import { loadUsersList } from "../../../Redux/Users/usersReducer";
 import { loadAllFeedBack } from "../../../Redux/FeedBack/feedBackReducer";
+import { loadAllSizes } from "../../../Redux/Sizes/SizesReducer";
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const AppLoader = ({ children }) => {
     dispatch(loadAllCategories());
     dispatch(loadUsersList());
     dispatch(loadAllFeedBack());
+    dispatch(loadAllSizes());
   }, [dispatch]);
 
   return children;

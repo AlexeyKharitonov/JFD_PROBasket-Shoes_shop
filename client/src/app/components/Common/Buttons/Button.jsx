@@ -21,6 +21,7 @@ const Button = ({
     "btn-primary": type === "primary",
     "btn-danger": type === "danger",
     "btn-gray": type === "gray",
+    "btn-purple": type === "purple",
     "btn-medium": size === "btnMedium",
   });
   return (

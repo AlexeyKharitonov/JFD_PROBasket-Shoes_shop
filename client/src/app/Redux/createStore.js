@@ -4,6 +4,7 @@ import { productsReducer } from "./Products/productsReducer";
 import { categoriesReducer } from "./Categories/categoriesReducer";
 import { selectedProductReducer } from "./Selected/selectedProduct";
 import { feedbackReducer } from "./FeedBack/feedBackReducer";
+import { sizesReducer } from "./Sizes/SizesReducer";
 import usersReducer from "./Users/usersReducer";
 
 export const store = configureStore({
@@ -14,5 +15,6 @@ export const store = configureStore({
     selected: selectedProductReducer,
     users: usersReducer,
     feedback: feedbackReducer,
+    sizes: sizesReducer,
   },
 });

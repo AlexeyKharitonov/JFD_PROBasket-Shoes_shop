@@ -2,14 +2,18 @@ import { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Dialog, Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import localStorageService from "../../Services/localStorage.service";
 import { FaUserTie } from "react-icons/fa";
+import { isCartEmptySelector } from "../../Redux/Cart/cartReducer";
 
 const NavProfile = ({ isOpen, onClose, user }) => {
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
+
+  const isCartNotEmpty = useSelector(isCartEmptySelector);
 
   const isAdmin = localStorageService.getIsAdmin();
   return (
@@ -41,7 +45,11 @@ const NavProfile = ({ isOpen, onClose, user }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mt-[52px] mr-8 lg:mr-[75px] md:mr-32 sm:mr-14 w-48 max-w-md rounded-xl bg-[#F2F2F2] px-1 py-4  text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel
+                className={`mt-[52px] mr-8  lg:mr-[${
+                  !isCartNotEmpty ? `110px` : `75px`
+                }] md:mr-32 sm:mr-14 w-48 max-w-md rounded-xl bg-[#F2F2F2] px-1 py-4  text-left align-middle shadow-xl transition-all`}
+              >
                 <div
                   className="overflow-y-auto overflow-x-hidden"
                   style={{ maxHeight: "80vh" }}

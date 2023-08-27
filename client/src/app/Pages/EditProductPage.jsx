@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import Rose_2 from "/Rose_2.jpg";
 import lebron_kobe from "/lebron_kobe.jpg";
 
 import { Loader as Spinner } from "../components/Common/Loader";
-//ПОТОМ ЛОАДИНГ ДОБАВЬ!!!!!!!!!!
 import TextField from "../components/Common/Inputs/TextField";
 import Button from "../components/Common/Buttons/Button";
 import {
@@ -18,22 +16,28 @@ import SelectField from "../components/Common/Inputs/SelectField";
 import BackButton from "../components/Common/Buttons/BackButton";
 import TextArea from "../components/Common/Inputs/TextArea";
 import localStorageService from "../Services/localStorage.service";
+import {
+  getAllSizes,
+  getSizesLoadingStatus,
+} from "../Redux/Sizes/SizesReducer";
 
 const EditProductPage = () => {
   const [selectedPlayingThem, setSelectedPlayingThem] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const isAdmin = localStorageService.getIsAdmin();
+  const allSizes = useSelector(getAllSizes());
+  const loadingAllsizes = useSelector(getSizesLoadingStatus());
+  // console.log("Все размеры из мок данных", allSizes);
+  const sizeArr = !loadingAllsizes && allSizes.find((obj) => obj.sizes);
+  // console.log("Все размеры из мок данных", sizeArr?.sizes);
 
   const handlePlayingThemChange = (selectedValues) => {
-    // console.log("PlayingThem:", selectedValues);
     setSelectedPlayingThem(selectedValues);
   };
 
   const handleSizesChange = (selectedValues) => {
     setSelectedSizes(selectedValues);
   };
-
-  // useEffect(() => {}, [selectedPlayingThem]);
 
   const { id } = useParams();
   const product = useSelector(currentProductById(id));
@@ -98,8 +102,6 @@ const EditProductPage = () => {
     paddingRight: "15px",
   };
 
-  // const description = watch("description", product.description);
-
   if (!loadingCurrentProductStatus && product) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
@@ -107,7 +109,7 @@ const EditProductPage = () => {
           <img
             src={lebron_kobe}
             alt="lebron_kobe"
-            className="absolute top-0 left-0 w-full h-full object-cover opacity-80 rounded-sm blurry-shadow"
+            className="absolute  top-0 left-0 w-full h-full object-cover opacity-70 rounded-sm blurry-shadow"
           />
         </div>
 
@@ -177,7 +179,7 @@ const EditProductPage = () => {
               <SelectField
                 name="sizes"
                 label="Размеры"
-                opts={product.sizes}
+                opts={!loadingAllsizes && allSizes ? sizeArr.sizes : "Loading"}
                 // initialValue={product.sizes} //ВРЕМЕННО
                 value={selectedSizes}
                 setValue={setValue}

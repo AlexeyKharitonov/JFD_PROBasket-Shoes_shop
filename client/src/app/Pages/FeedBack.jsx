@@ -32,7 +32,7 @@ const FeedBack = () => {
           </CardWrapper>
           {feedBack.map((comment) => (
             <CardWrapper key={comment._id} w="w-3/4">
-              <div className="py-0 px-4 pr-3 mb-6">
+              <div className="pt-0 px-4 pr-8 mt-8 mb-8">
                 <div className="flex flex-col xl:flex-row items-center justify-center py-4 pb-9 max-w-screen-lg">
                   <div className="mb-6 xl:mb-0 xl:mr-8">
                     <div className="">

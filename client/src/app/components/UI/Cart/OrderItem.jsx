@@ -79,7 +79,7 @@ const OrderItem = () => {
                       className="leading-none"
                     />
                   </button>
-                  <span className="mx-0.5 leading-normal pb-8">
+                  <span className=" leading-normal px-0.5">
                     {product.count}
                   </span>
                   <button
@@ -98,7 +98,7 @@ const OrderItem = () => {
                 {getSizeForProduct(product._id).size} разм.
               </span>
               <span className="text-center mr-8 text-lg ">
-                <span className="underline">{product.price}</span>
+                <span>{product.price}</span>
                 <span> руб.</span>
               </span>
               <Button type="danger" handleClick={handleOpen}>

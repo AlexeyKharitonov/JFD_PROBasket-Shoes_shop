@@ -95,7 +95,7 @@ const DropDownSort = ({ setSortType }) => {
                           }
                   ${
                     checked
-                      ? "bg-[#0f6fd1] bg-opacity-75 text-white"
+                      ? "bg-[#0f6fd1] bg-opacity-100 text-white"
                       : "bg-white"
                   }
                     relative flex cursor-pointer rounded-3xl px-5 py-4 shadow-md focus:outline-none`

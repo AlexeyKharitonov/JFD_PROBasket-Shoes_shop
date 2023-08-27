@@ -6,7 +6,7 @@ import { SiTelegram } from "react-icons/si";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="bg-gray-700 text-white py-5 z-50 ">
+    <footer className="bg-[#545F72] text-white py-5 z-50 ">
       <div className=" justify-center text-center flex items-center lg:text-base md:text-sm sm:text-xs font-normal  pb-7  ">
         {currentYear} © ООО «PROBasket-Shoes». Все права защищены. Информация на
         сайте не является публичной офертой согласно Ст. 437 ГК РФ
@@ -17,7 +17,7 @@ const Footer = () => {
             <a href="https://www.instagram.com/result.school.it/">
               <BsInstagram
                 size={33}
-                className=" text-[#e1336c] opacity-60 hover:brightness-90 transition duration-300 hover:opacity-100"
+                className=" text-[#e1336c] opacity-90 hover:brightness-75 transition duration-300 hover:opacity-100"
               />
             </a>
           </li>
@@ -25,7 +25,7 @@ const Footer = () => {
             <a href="https://vk.com/result.school">
               <SlSocialVkontakte
                 size={33}
-                className="text-[#2787F5] opacity-60 hover:brightness-90 transition duration-300 hover:opacity-100"
+                className="text-[#2787F5] opacity-90 hover:brightness-75 transition duration-300 hover:opacity-100"
               />
             </a>
           </li>
@@ -33,7 +33,7 @@ const Footer = () => {
             <a href="https://www.whatsapp.com/">
               <BsWhatsapp
                 size={33}
-                className="text-[#25D366] opacity-60 hover:brightness-90 transition duration-300 hover:opacity-100"
+                className="text-[#25D366] opacity-90 hover:brightness-75 transition duration-300 hover:opacity-100"
               />
             </a>
           </li>
@@ -41,7 +41,7 @@ const Footer = () => {
             <a href="https://t.me/WeST_024">
               <SiTelegram
                 size={33}
-                className="text-[#0088CC] opacity-60 hover:brightness-90 transition duration-300 hover:opacity-100"
+                className="text-[#0088CC] opacity-90 hover:brightness-75 transition duration-300 hover:opacity-100"
               />
             </a>
           </li>

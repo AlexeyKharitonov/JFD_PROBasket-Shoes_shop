@@ -47,3 +47,8 @@ body {
 .animate-fadeInTwo {
   animation: fadeIn 2.5s forwards;
 }
+
+//для SVG знака вопроса внутри уведомления toast
+.custom-toast-error svg {
+  fill: #0f6fd1;
+}
