@@ -22,9 +22,12 @@ const ModalCart = ({ isOpen, onClose, onDelete }) => {
       navigate("/order");
     } else {
       navigate("/auth/register");
-      toast.error("Пожалуйста, зарегистрируйтесь или войдите в систему", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error(
+        "Пожалуйста, зарегистрируйтесь или войдите, чтобы завершить заказ",
+        {
+          position: toast.POSITION.TOP_CENTER,
+        }
+      );
     }
     onClose();
   };
