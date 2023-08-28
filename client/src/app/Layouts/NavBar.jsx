@@ -63,7 +63,7 @@ const NavBar = () => {
   return (
     <NavBarWrapper>
       <nav className="p-1 bg-[#0f6fd1]" style={{ opacity: opacity }}>
-        <div className="container mx-auto px-4 md:px-4 lg:px-8 sm:px-1">
+        <div className="container mx-auto px-8">
           <div className="flex justify-between items-center text-base">
             <div className="flex items-center md:mx-2 lg:mx-5 text-gray-400">
               <div className=" opacity-80 hidden md:flex  transition-all duration-1000 ease-in-out translate-y-5 animate-fadeInTwo">
@@ -75,7 +75,7 @@ const NavBar = () => {
               </div>
               <NavLink to="/">
                 <div
-                  className="text-[#ffffff]  ml-2 md:ml-4 lg:ml-6 mr-1 text-xl md:text-2xl lg:text-4xl font-bold  hover:text-gray-400 whitespace-nowrap transition-all duration-1000 ease-in-out opacity-0 translate-y-5 animate-fadeIn"
+                  className="text-[#ffffff] hidden sm:block ml-2 md:ml-4 lg:ml-6 mr-1 text-xl md:text-2xl lg:text-4xl font-bold  hover:text-gray-400 whitespace-nowrap transition-all duration-1000 ease-in-out opacity-0 translate-y-5 animate-fadeIn"
                   style={{
                     fontFamily: "Questrial",
                     fontStyle: "italic",
@@ -96,19 +96,19 @@ const NavBar = () => {
             <div className="flex items-center lg:text-base md:text-sm sm:text-xs">
               <NavLink
                 to="/"
-                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap"
               >
                 Главная
               </NavLink>
               <NavLink
                 to="/about"
-                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap"
               >
                 О магазине
               </NavLink>
               <NavLink
                 to="/feedback"
-                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap"
               >
                 Отзывы
               </NavLink>
@@ -136,7 +136,7 @@ const NavBar = () => {
                 ) : (
                   <NavLink
                     to="/auth/login"
-                    className="hover:text-gray-400 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
+                    className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
                   >
                     Войти
                   </NavLink>

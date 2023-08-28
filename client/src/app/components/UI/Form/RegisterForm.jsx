@@ -164,10 +164,10 @@ const RegisterForm = () => {
             <p className="text-red-600 text-sm my-2 px-1.5">{currentError}</p>
           )}
           <div className="flex justify-between items-start text-base">
-            <p className="flex items-center">
+            <p className="flex items-center text-sm pl-2">
               <input
                 name="isAdmin"
-                className="mr-1.5 w-4 h-4"
+                className="mr-1.5 w-4 h-4 "
                 {...register("isAdmin")}
                 type="checkbox"
                 checked={isAdminChecked}
@@ -179,9 +179,11 @@ const RegisterForm = () => {
               <span className="flex items-center">
                 <button onClick={handlelick} type="button">
                   <p>Уже есть аккаунт?</p>
-                  <p>Войдите</p>
+                  <span className="flex items-center mx-8">
+                    Войдите
+                    <TbLogin size={30} color="#F56344" className="ml-2.5" />
+                  </span>
                 </button>
-                <TbLogin size={32} color="#F56344" className="ml-2" />
               </span>
             </div>
           </div>

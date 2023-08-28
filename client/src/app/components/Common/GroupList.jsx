@@ -5,7 +5,7 @@ const GroupList = ({ category, onTitleSelect, activeElement }) => {
     <div className="flex flex-col items-center justify-center mb-10">
       <WorkTimes />
       <div className="rounded-3xl border-0 py-4 px-5 bg-[#EEEEEE] text">
-        {category.map((el, index) => (
+        {category.map((el) => (
           <button
             key={el._id}
             className={`block w-full cursor-pointer text-left text-gray-700 font-semibold rounded-3xl p-4 transition duration-500 focus:ring-0 hover:scale-105 dark:hover:bg-[#0b5eb3] dark:hover:text-neutral-300 dark:focus:bg-[#0f6fd1] dark:focus:text-neutral-200 whitespace-nowrap ${

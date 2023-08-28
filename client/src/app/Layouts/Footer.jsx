@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-[#545F72] text-white py-5 z-50 ">
-      <div className=" justify-center text-center flex items-center lg:text-base md:text-sm sm:text-xs font-normal  pb-7  ">
+      <div className=" justify-center text-center flex items-center lg:text-base md:text-sm sm:text-xs font-normal pb-7  ">
         {currentYear} © ООО «PROBasket-Shoes». Все права защищены. Информация на
         сайте не является публичной офертой согласно Ст. 437 ГК РФ
       </div>

@@ -36,7 +36,7 @@ function App() {
           <Footer />
         </MainWrapper>
       </AppLoader>
-      <ToastContainer style={{ top: "45%" }} />
+      <ToastContainer style={{ top: "35%" }} />
     </>
   );
 }

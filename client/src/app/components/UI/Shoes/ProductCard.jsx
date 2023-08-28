@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Badge from "../../Common/Badge";
@@ -26,7 +26,13 @@ const ProductCard = ({ sneaker }) => {
   const isProductInCart = products.some((product) => product._id === _id);
   const dispatch = useDispatch();
 
-  const [selectedSize, setSelectedSize] = useState(null);
+  const initialState = localStorage.getItem("selectedSize");
+  const [selectedSize, setSelectedSize] = useState(initialState);
+
+  useEffect(() => {
+    localStorage.setItem("selectedSize", selectedSize);
+  }, [selectedSize]);
+
   const [sizeNotSelected, setSizeNotSelected] = useState(false);
 
   const productSizeInCart = sizesInCart.find((item) => item._id === _id);
@@ -59,13 +65,20 @@ const ProductCard = ({ sneaker }) => {
   };
 
   const handleSizeSelect = (sizeOfProduct) => {
-    if (sizeOfProduct === selectedSize) {
-      setSelectedSize(null);
-      dispatch(removeSizeFromCart(_id));
-    } else {
+    setSelectedSize(null);
+    dispatch(removeSizeFromCart(_id));
+    if (sizeOfProduct !== selectedSize) {
       setSelectedSize(sizeOfProduct);
       dispatch(selectSizeInCart({ _id, size: sizeOfProduct }));
     }
+
+    // if (sizeOfProduct !== selectedSize) {
+    //   setSelectedSize(sizeOfProduct);
+    //   dispatch(selectSizeInCart({ _id, size: sizeOfProduct }));
+    // } else {
+    //   setSelectedSize(null);
+    //   dispatch(removeSizeFromCart(_id));
+    // }
   };
 
   const handleDelete = (event, id) => {
