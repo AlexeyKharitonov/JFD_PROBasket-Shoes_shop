@@ -7,7 +7,7 @@ const SizesList = ({ children, selected, onClick, sizeNotSelected }) => {
       className={`${baseStyles} ${
         selected
           ? "text-white bg-gray-400"
-          : "text-gray-500 bg-white hover:bg-slate-200"
+          : "text-gray-500 bg-white hover:bg-slate-200 hover:scale-105"
       } ${sizeNotSelected ? "border-[1px] border-red-600  text-red-600" : " "}`}
       onClick={onClick}
     >

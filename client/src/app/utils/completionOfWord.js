@@ -13,3 +13,5 @@ export const completionOVerb = (count) => {
   if (lastDigit === 1 && secondToLastDigit !== 1) return `выбран`;
   return `выбрано`;
 };
+
+export const completionOfProducts = (length) => {};

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 const ProductDescription = ({ description, playingThem }) => {
   return (
-    <div className="text-sm text-gray-700 leading-6 p-7 ">
+    <div className="text-sm text-gray-600 leading-6 p-7 ">
       <div className="mb-3 font-bold text-2xl text-center">Описание</div>
       <div style={{ textIndent: "2em" }}>{description}</div>
       <div className="flex items-baseline my-4 flex-wrap">

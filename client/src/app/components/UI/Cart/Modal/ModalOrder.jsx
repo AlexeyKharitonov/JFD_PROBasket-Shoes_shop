@@ -28,7 +28,7 @@ const ModalOrder = ({ isOpen }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-80" />
+            <div className="fixed inset-0 bg-black bg-opacity-70" />
           </Transition.Child>
 
           <div className="fixed inset-0 flex items-start justify-end ">
@@ -55,7 +55,7 @@ const ModalOrder = ({ isOpen }) => {
                   </div>
                   <div className="px-10 text-center mb-4 ">
                     <Dialog.Title>
-                      Спасибо за заказ! Мы скоро свяжемся с вами😊🔥🏀
+                      Спасибо за заказ! Мы скоро свяжемся с Вами😊🔥🏀
                     </Dialog.Title>
                   </div>
                   <Button

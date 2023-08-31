@@ -37,7 +37,7 @@ const cartSlice = createSlice({
       state.productInCart = [];
       state.selectedSize = []; // Удаляем все выбранные размеры
       localStorageService.clearAllCart();
-      localStorageService.clearAllCartWithSizes(); // Очищаем размеры из local storage
+      localStorageService.clearAllCartWithSizes(); // Очищаем размеры из localstorage
     },
     incrementCount: (state, action) => {
       const updateProduct = state.productInCart.find(
@@ -78,6 +78,15 @@ export const { reducer: cartReducer } = cartSlice;
 export const isCartEmptySelector = (state) => {
   const { productInCart, selectedSize } = state.cart;
   return productInCart.length === 0 && selectedSize.length === 0;
+};
+
+//проверка есть ли в корзине размер по переданному id
+//название как в localStorageService
+export const isSelectedCurrentSize = (sizeId) => (state) => {
+  if (state.cart.selectedSize) {
+    // return localStorageService.isSelectedCurrentSize(sizeId);
+    return state.cart.selectedSize.find((size) => size._id === sizeId);
+  }
 };
 
 export default cartSlice;

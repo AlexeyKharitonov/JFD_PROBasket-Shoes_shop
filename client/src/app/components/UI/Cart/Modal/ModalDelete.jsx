@@ -1,30 +1,20 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   removeProductFromCart,
   removeSizeFromCart,
-  isCartEmptySelector,
 } from "../../../../Redux/Cart/cartReducer";
 import Button from "../../../Common/Buttons/Button";
 
 const ModalDelete = ({ isOpen, onClose, id }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isCartEmpty = useSelector(isCartEmptySelector);
 
   const handleDelete = (id) => {
     dispatch(removeProductFromCart(id));
     dispatch(removeSizeFromCart(id));
   };
-
-  // useEffect(() => {
-  //   if (isCartEmpty) {
-  //     navigate("/");
-  //   }
-  // }, [isCartEmpty]);
 
   return (
     <>
@@ -40,7 +30,7 @@ const ModalDelete = ({ isOpen, onClose, id }) => {
             leaveTo="opacity-0"
           >
             <div
-              className="fixed inset-0 bg-black bg-opacity-50"
+              className="fixed inset-0 bg-black bg-opacity-70"
               onClose={onClose}
             />
           </Transition.Child>
@@ -55,7 +45,7 @@ const ModalDelete = ({ isOpen, onClose, id }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mt-[156px] mr-[510px] px-12 w-full max-w-lg rounded-2xl bg-[#F2F2F2] p-12 pb-6    text-center align-middle shadow-xl transition-all">
+              <Dialog.Panel className="mt-[166px] mr-[510px] px-12 w-full max-w-lg rounded-2xl bg-[#F2F2F2] p-12 pb-6    text-center align-middle shadow-xl transition-all">
                 <div
                   className="overflow-y-auto overflow-x-hidden"
                   style={{ maxHeight: "80vh" }}
@@ -68,7 +58,7 @@ const ModalDelete = ({ isOpen, onClose, id }) => {
                       <div className="mb-6 mt-1 leading-tight">
                         Вы действительно хотите удалить данный товар?
                       </div>
-                      <div className="flex space-x-8">
+                      <div className="flex space-x-11">
                         <Button
                           type="danger"
                           handleClick={() => handleDelete(id)}
@@ -77,7 +67,7 @@ const ModalDelete = ({ isOpen, onClose, id }) => {
                           Удалить
                         </Button>
                         <Button type="gray" handleClick={onClose}>
-                          Отменить
+                          Назад
                         </Button>
                       </div>
                     </span>

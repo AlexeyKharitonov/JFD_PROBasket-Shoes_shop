@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Badge from "../../Common/Badge";
@@ -9,6 +9,7 @@ import {
   setProductInCart,
   selectSizeInCart,
   removeSizeFromCart,
+  isSelectedCurrentSize,
 } from "../../../Redux/Cart/cartReducer";
 import { removeProduct } from "../../../Redux/Products/productsReducer";
 import SizesList from "../../Common/SizesList";
@@ -18,28 +19,36 @@ import localStorageService from "../../../Services/localStorage.service";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
 const ProductCard = ({ sneaker }) => {
+  const dispatch = useDispatch();
   const { _id, photos, sizes, name, tags, price } = sneaker;
   const products = useSelector((state) => state.cart.productInCart);
   const sizesInCart = useSelector((state) => state.cart.selectedSize);
 
   const isAdmin = localStorageService.getIsAdmin();
   const isProductInCart = products.some((product) => product._id === _id);
-  const dispatch = useDispatch();
 
-  const initialState = localStorage.getItem("selectedSize");
-  const [selectedSize, setSelectedSize] = useState(initialState);
+  // const initialState = localStorage.getItem("selectedSize");
+  // const [selectedSize, setSelectedSize] = useState(initialState);
 
-  useEffect(() => {
-    localStorage.setItem("selectedSize", selectedSize);
-  }, [selectedSize]);
+  // useEffect(() => {
+  //   localStorage.setItem("selectedSize", selectedSize);
+  // }, [selectedSize]);
 
   const [sizeNotSelected, setSizeNotSelected] = useState(false);
-
   const productSizeInCart = sizesInCart.find((item) => item._id === _id);
+
+  const isSelected = useSelector(isSelectedCurrentSize(_id));
+  // if (isSelected) {
+  //   console.log(`выбран размер ${_id}`);
+  // } else {
+  //   console.log("а другие не выбраны еще");
+  // }
+  // console.log(isSelected);
 
   const handleBuy = (event) => {
     event.preventDefault();
-    if (!selectedSize) {
+    // if (isSelected._id !== _id) {
+    if (!isSelected) {
       setSizeNotSelected(true);
       toast.error("Пожалуйста, выберете размер товара", {
         position: toast.POSITION.TOP_CENTER,
@@ -53,7 +62,7 @@ const ProductCard = ({ sneaker }) => {
     if (isProductInCart) {
       dispatch(removeProductFromCart(_id));
       dispatch(removeSizeFromCart(_id));
-      setSelectedSize(null);
+      // setSelectedSize(null);
     } else {
       dispatch(setProductInCart(sneaker));
       toast.error("Товар добавлен в корзину", {
@@ -64,23 +73,18 @@ const ProductCard = ({ sneaker }) => {
     }
   };
 
+  //Выбор размера
   const handleSizeSelect = (sizeOfProduct) => {
-    setSelectedSize(null);
     dispatch(removeSizeFromCart(_id));
-    if (sizeOfProduct !== selectedSize) {
-      setSelectedSize(sizeOfProduct);
+    if (sizeOfProduct !== isSelected?.size) {
       dispatch(selectSizeInCart({ _id, size: sizeOfProduct }));
+    } else {
+      dispatch(removeSizeFromCart(_id));
+      dispatch(removeProductFromCart(_id));
     }
-
-    // if (sizeOfProduct !== selectedSize) {
-    //   setSelectedSize(sizeOfProduct);
-    //   dispatch(selectSizeInCart({ _id, size: sizeOfProduct }));
-    // } else {
-    //   setSelectedSize(null);
-    //   dispatch(removeSizeFromCart(_id));
-    // }
   };
 
+  //////////////удаление для админа
   const handleDelete = (event, id) => {
     event.stopPropagation();
     event.preventDefault();
@@ -111,7 +115,9 @@ const ProductCard = ({ sneaker }) => {
       </NavLink>
       <div className="w-full flex flex-col items-center justify-center mt-0 p-0 pb-0 rounded-shadow">
         <NavLink to={`/product/${sneaker._id}`}>
-          <h1 className="text-3xl font-bold mb-1 justify-center">{name}</h1>
+          <h1 className="text-3xl font-bold text-gray-700 mb-1 justify-center">
+            {name}
+          </h1>
         </NavLink>
         <div className="flex justify-center w-full items-center mt-1 mb-3">
           <span>
@@ -132,10 +138,7 @@ const ProductCard = ({ sneaker }) => {
           {sizes.map((size, index) => (
             <SizesList
               key={index}
-              // selected={size === selectedSize}
-              selected={
-                size === (productSizeInCart ? productSizeInCart.size : null)
-              }
+              selected={size === (isSelected ? productSizeInCart.size : null)}
               onClick={() => handleSizeSelect(size)}
               sizeNotSelected={sizeNotSelected}
             >
@@ -155,7 +158,7 @@ const ProductCard = ({ sneaker }) => {
               </NavLink>
               <Button
                 type={isProductInCart ? "white" : "primary"}
-                handleClick={(event) => handleBuy(event)}
+                handleClick={(event) => handleBuy(event, _id)}
               >
                 {isProductInCart ? "Убрать" : "В корзину"}
               </Button>
@@ -163,7 +166,7 @@ const ProductCard = ({ sneaker }) => {
           ) : (
             <Button
               type={isProductInCart ? "white" : "primary"}
-              handleClick={(event) => handleBuy(event)}
+              handleClick={(event) => handleBuy(event, _id)}
             >
               {isProductInCart ? "Убрать" : "В корзину"}
             </Button>

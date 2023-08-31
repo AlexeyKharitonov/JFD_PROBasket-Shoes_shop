@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -34,6 +34,10 @@ const LoginForm = () => {
       reset();
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    toast.dismiss();
+  }, []);
 
   useEffect(() => {
     dispatch(authResetErrors());
@@ -72,7 +76,7 @@ const LoginForm = () => {
         <img
           src={Russ}
           alt="Russ"
-          className="absolute top-0 left-0 w-full h-full object-cover opacity-80 rounded-md blurry-shadow"
+          className="absolute top-0 left-0 w-full h-full object-cover opacity-80 blurry-shadow"
         />
       </div>
 
@@ -81,7 +85,7 @@ const LoginForm = () => {
           <BackButton />
         </div>
         <form
-          className="max-w-[450px] w-full mx-auto bg-[#EEEEEE] p-8 rounded-xl shadow-2xl"
+          className="max-w-[450px] w-full mx-auto bg-[#EEEEEE] p-8 rounded-3xl shadow-2xl"
           onSubmit={handleSubmit(onSubmit)}
         >
           <h2 className="text-5xl font-semibold text-left py-2">Вход</h2>

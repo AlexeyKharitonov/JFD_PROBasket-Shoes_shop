@@ -51,7 +51,7 @@ const DropDownSort = ({ setSortType }) => {
               isClicked ? "scale-105" : "scale-102"
             }`}
           >
-            <Button type="white">
+            <Button type="purple">
               {selected}
               {menuOpen ? (
                 <IoIosArrowUp className="ml-1 mt-1" size={19} />
@@ -72,7 +72,7 @@ const DropDownSort = ({ setSortType }) => {
           leaveTo="transform opacity-0 scale-95"
           afterLeave={() => setMenuOpen(false)}
         >
-          <Menu.Items className="absolute right-0 mt-0 w-72 origin-top-right divide-y divide-gray-100 rounded-3xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 mt-0 w-[305px] origin-top-right divide-y divide-gray-100 rounded-3xl bg-[#ECEBED] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="w-full px-4 py-4">
               <div className="mx-auto w-full max-w-md">
                 <RadioGroup
@@ -90,12 +90,12 @@ const DropDownSort = ({ setSortType }) => {
                         className={({ active, checked }) =>
                           `${
                             active
-                              ? "ring-2 ring-white ring-opacity-60 ring-offset-2"
+                              ? "ring-2 ring-gray-400 ring-opacity-60 ring-offset-1"
                               : ""
                           }
                   ${
                     checked
-                      ? "bg-[#0f6fd1] bg-opacity-100 text-white"
+                      ? "bg-[#7b68ee] bg-opacity-100 text-white"
                       : "bg-white"
                   }
                     relative flex cursor-pointer rounded-3xl px-5 py-4 shadow-md focus:outline-none`

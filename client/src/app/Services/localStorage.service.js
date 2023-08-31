@@ -136,6 +136,15 @@ export const addSizeInCart = (size) => {
 export function getSizesInCart() {
   return JSON.parse(localStorage.getItem(SIZES_IN_CART));
 }
+//ПРОВЕРИТЬ НАЛИЧИЕ КОНКРЕТНОГО РАЗМЕРА ПО id В КОРЗИНЕ
+export const isSelectedCurrentSize = (id) => {
+  const storedData = localStorage.getItem(SIZES_IN_CART);
+  if (!storedData) return false;
+
+  const sizesInCart = JSON.parse(storedData);
+
+  return Boolean(sizesInCart.find((size) => size._id === id));
+};
 //УДАЛЯЕМ РАЗМЕРЫ ИЗ КОРЗИНЫ
 export function removeSizesFromCart(sizeId) {
   const currentSizes = JSON.parse(localStorage.getItem(SIZES_IN_CART)) || [];
@@ -169,6 +178,7 @@ const localStorageService = {
   //размеры
   addSizeInCart,
   getSizesInCart,
+  isSelectedCurrentSize, //проверка наличия размера в корзине по id
   removeSizesFromCart,
   clearAllCartWithSizes,
 };

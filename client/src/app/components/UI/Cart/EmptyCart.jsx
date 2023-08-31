@@ -18,7 +18,7 @@ const EmptyCart = () => {
               <NavLink to="/" className="text-[#0f6fd1] font-bold underline">
                 на главную страницу,
               </NavLink>{" "}
-              чтобы сделать заказ!😋😋
+              чтобы сделать заказ!😋
             </span>
           </div>
         </CardWrapper>

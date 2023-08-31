@@ -4,11 +4,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import localStorageService from "../../Services/localStorage.service";
-import { FaUserTie } from "react-icons/fa";
+import { FaUserTie, FaProductHunt } from "react-icons/fa";
 import { isCartEmptySelector } from "../../Redux/Cart/cartReducer";
+import { completionOfWord } from "../../utils/completionOfWord";
 
 const NavProfile = ({ isOpen, onClose, user }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const items = useSelector((state) => state.cart.productInCart);
   useEffect(() => {
     setCurrentUser(user);
   }, [user]);
@@ -48,7 +50,7 @@ const NavProfile = ({ isOpen, onClose, user }) => {
               <Dialog.Panel
                 className={`mt-[52px] mr-8  lg:mr-[${
                   !isCartNotEmpty ? `110px` : `75px`
-                }] md:mr-32 sm:mr-14 w-48 max-w-md rounded-xl bg-[#F2F2F2] px-1 py-4  text-left align-middle shadow-xl transition-all`}
+                }] md:mr-32 sm:mr-14 w-48 max-w-md rounded-2xl bg-[#F2F2F2] px-1 py-4  text-left align-middle shadow-xl transition-all`}
               >
                 <div
                   className="overflow-y-auto overflow-x-hidden"
@@ -70,6 +72,22 @@ const NavProfile = ({ isOpen, onClose, user }) => {
                           </span>
                         </span>
                       )}
+                      {items.length ? (
+                        <span className="flex items-end">
+                          <span>
+                            У <span className="text-[#0f6fd1]">Вас</span> в
+                            корзине
+                            <span className="inline-flex items-center underline">
+                              {completionOfWord(items.length)}
+                              <FaProductHunt
+                                className="ml-2 opacity-90"
+                                size={25}
+                                color="#7b68ee"
+                              />
+                            </span>
+                          </span>
+                        </span>
+                      ) : null}
                       <NavLink to="/logout">
                         <button className="border p-6 w-full py-3 rounded-2xl mb-0.5 mt-4 bg-[#0f6fd1] hover:bg-[#0b5eb3] text-white hover:text-gray-300 transition-all">
                           Выйти

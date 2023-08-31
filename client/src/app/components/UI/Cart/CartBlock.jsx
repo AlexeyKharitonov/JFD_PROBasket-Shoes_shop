@@ -28,10 +28,7 @@ const CartBlock = () => {
     <div className="relative flex items-center lg:text-base md:text-sm sm:text-xs">
       <div className="relative lg:text-base md:text-sm sm:text-xs ">
         <span onClick={openModal}>
-          <IoMdCart
-            // size={44}
-            className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-11 lg:h-11 text-[#FCCA3D] hover:text-yellow-600 "
-          />
+          <IoMdCart className="w-6 h-6 hover:scale-102 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-11 lg:h-11 text-[#FCCA3D] hover:text-yellow-600 " />
         </span>
         <CounterInCart count={items.length} />
       </div>

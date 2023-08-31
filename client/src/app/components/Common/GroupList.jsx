@@ -10,7 +10,7 @@ const GroupList = ({ category, onTitleSelect, activeElement }) => {
             key={el._id}
             className={`block w-full cursor-pointer text-left text-gray-700 font-semibold rounded-3xl p-4 transition duration-500 focus:ring-0 hover:scale-105 dark:hover:bg-[#0b5eb3] dark:hover:text-neutral-300 dark:focus:bg-[#0f6fd1] dark:focus:text-neutral-200 whitespace-nowrap ${
               el === activeElement
-                ? "bg-[#0f6fd1] text-neutral-200 hover:scale-105"
+                ? "bg-[#0f6fd1] border-2 border-gray-700  text-neutral-200 hover:scale-105"
                 : "hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500"
             }`}
             onClick={() => onTitleSelect(el)}

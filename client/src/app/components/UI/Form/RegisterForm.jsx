@@ -59,11 +59,7 @@ const RegisterForm = () => {
 
   const onSubmit = (data, event) => {
     event.preventDefault();
-    // dispatch(setIsAdmin({ isAdminChecked }));
     dispatch(signUp(data));
-
-    // reset();
-    // navigate("/");
   };
 
   const handleAdmin = ({ target }) => {
@@ -76,11 +72,11 @@ const RegisterForm = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-      <div className="hidden md:block relative h-screen">
+      <div className="hidden md:block relative h-[102vh]">
         <img
           src={newRose}
           alt="Rose"
-          className="w-full h-full opacity-80 object-cover rounded-md blurry-shadow"
+          className="w-full h-full opacity-80 object-cover blurry-shadow"
         />
       </div>
 
@@ -89,7 +85,7 @@ const RegisterForm = () => {
           <BackButton />
         </div>
         <form
-          className="max-w-[450px] w-full mx-auto bg-[#EEEEEE] p-8 rounded-xl shadow-2xl"
+          className="max-w-[450px] w-full mx-auto bg-[#EEEEEE] p-8 rounded-3xl shadow-2xl"
           onSubmit={handleSubmit(onSubmit)}
         >
           <h2 className="text-5xl font-semibold text-left py-2">Регистрация</h2>

@@ -67,11 +67,11 @@ const NavBar = () => {
           <div className="flex justify-between items-center text-base">
             <div className="flex items-center md:mx-2 lg:mx-5 text-gray-400">
               <div className=" opacity-80 hidden md:flex  transition-all duration-1000 ease-in-out translate-y-5 animate-fadeInTwo">
-                <SiNike size={33} className="mr-1 ml-1" />
-                <SiJordan size={33} className="mr-1 ml-1 text-stone-700" />
-                <SiAdidas size={33} className="mr-4 ml-1" />
-                <SiPuma size={33} className="mr-4 ml-1 text-stone-700" />
-                <SiUnderarmour size={33} className="mr-2 ml-1" />
+                <SiNike size={31} className="mr-1 ml-1" />
+                <SiJordan size={31} className="mr-1 ml-1 text-stone-700" />
+                <SiAdidas size={31} className="mr-4 ml-1" />
+                <SiPuma size={31} className="mr-4 ml-1 text-stone-700" />
+                <SiUnderarmour size={31} className="mr-2 ml-1" />
               </div>
               <NavLink to="/">
                 <div
@@ -96,19 +96,19 @@ const NavBar = () => {
             <div className="flex items-center lg:text-base md:text-sm sm:text-xs">
               <NavLink
                 to="/"
-                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-300 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap transition-transform duration-200 ease-in-out transform hover:scale-105"
               >
                 Главная
               </NavLink>
               <NavLink
                 to="/about"
-                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-300 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap transition-transform duration-200 ease-in-out transform hover:scale-105"
               >
                 О магазине
               </NavLink>
               <NavLink
                 to="/feedback"
-                className="hover:text-gray-400 hover:scale-105 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap"
+                className="hover:text-gray-300 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap transition-transform duration-200 ease-in-out transform hover:scale-105"
               >
                 Отзывы
               </NavLink>
@@ -121,7 +121,7 @@ const NavBar = () => {
                           size={28}
                           className="text-[#FCCA3D] hover:text-yellow-600 mb-1  mr-2 md:mr-4 lg:mr-9 whitespace-nowrap"
                         />
-                        <div className="hover:text-gray-400 hover:scale-101 text-white  mr-2 md:mr-4 lg:mr-9 whitespace-nowrap border-2 rounded-lg p-0.5 border-gray-300">
+                        <div className="hover:text-gray-300 text-white font-medium mr-4 md:mr-4 lg:mr-9 whitespace-nowrap transition-transform duration-200 ease-in-out transform hover:scale-101">
                           {!loading && user.login}
                         </div>
                       </div>
