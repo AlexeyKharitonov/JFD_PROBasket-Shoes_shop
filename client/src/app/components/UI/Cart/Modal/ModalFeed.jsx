@@ -1,23 +1,18 @@
 import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { Dialog, Transition } from "@headlessui/react";
-import { deleteAllFromCart } from "../../../../Redux/Cart/cartReducer";
 import Button from "../../../Common/Buttons/Button";
 import TextField from "../../../Common/Inputs/TextField";
 import TextArea from "../../../Common/Inputs/TextArea";
-import ModalOrder from "./ModalOrder";
-import Clippers_Dallas from "/Clippers_Dallas.jpeg";
+import heat from "/heat.jpeg";
 
-const ModalPreOrder = ({ isOpen, onClose }) => {
+const ModalFeed = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isFirstModalHidden, setIsFirstModalHidden] = useState(false);
+  const [, setModalOpen] = useState(false);
 
   const {
     register,
@@ -28,44 +23,32 @@ const ModalPreOrder = ({ isOpen, onClose }) => {
   });
 
   const onSubmit = () => {
-    setIsFirstModalHidden(true);
     setTimeout(() => {
       navigate("/");
-      dispatch(deleteAllFromCart());
-    }, 6000);
+    }, 1000);
     setModalOpen(true);
   };
 
   useEffect(() => {
     if (errors.addres) {
+      toast.error("Пожалуйста, введите Ваше имя и Ваш отзыв", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
+  }, [errors]);
+
+  useEffect(() => {
+    if (errors.name && errors.feedback) {
       toast.error("Пожалуйста, укажите адрес доставки", {
         position: toast.POSITION.BOTTOM_CENTER,
       });
     }
   }, [errors]);
 
-  const styles = isFirstModalHidden
-    ? {
-        opacity: 0,
-        visibility: "hidden",
-        transition:
-          "opacity 0.5s ease-in-out, visibility 0.5s ease-in-out 0.5s",
-      }
-    : {
-        opacity: 1,
-        visibility: "visible",
-        transition: "opacity 0.5s ease-in-out",
-      };
-
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-50"
-          onClose={onClose}
-          style={styles}
-        >
+        <Dialog as="div" className="relative z-50" onClose={onClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -91,10 +74,10 @@ const ModalPreOrder = ({ isOpen, onClose }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className=" mt-[10px] w-full max-w-md lg:max-w-xl rounded-2xl bg-[#F2F2F2] text-center align-middle shadow-xl transition-all">
+              <Dialog.Panel className=" mt-[10px] w-full max-w-md md:max-w-xl rounded-2xl bg-[#F2F2F2] text-center align-middle shadow-xl transition-all">
                 <div
                   className="overflow-y-auto overflow-x-hidden"
-                  style={{ maxHeight: "102vh" }}
+                  style={{ maxHeight: "100vh" }}
                 >
                   <Dialog.Title
                     as="h3"
@@ -107,52 +90,59 @@ const ModalPreOrder = ({ isOpen, onClose }) => {
                           onSubmit={handleSubmit(onSubmit)}
                         >
                           <div className="text-4xl font-bold  pb-3.5 text-center">
-                            Оформление заказа
+                            Отзыв
                           </div>
                           <TextField
-                            name="addres"
-                            label="Ваш адрес для доставки"
-                            placeholder="Область, город, улица, дом (, квартира)"
+                            name="name"
+                            label="Введите Ваше имя"
+                            placeholder="Ваше имя"
                             register={register}
                             rules={{
-                              required: "Адрес обязателен",
+                              required: "Имя обязательно",
                               minLength: {
                                 value: 4,
                                 message:
-                                  "Адрес должен содержать минимум 15 символа",
+                                  "Имя должно содержать минимум 4 символа",
                               },
                             }}
-                            error={errors.addres}
+                            error={errors.name}
                           />
                           <TextArea
-                            name="comments"
-                            label="Ваши комментарии к заказу"
+                            name="feedback"
+                            label="Ваш отзыв"
                             register={register}
                             onChange={(e) => null}
-                            placeholder="Ваши комментарии по заказу при желании😊..."
+                            placeholder="Напишите Ваш отзыв :) ..."
+                            rules={{
+                              required: "Отзыв обязателен",
+                            }}
+                            error={errors.feedback}
                           />
                         </form>
                       </div>
                     </div>
                     <div
-                      className="flex relative justify-center w-auto mb-0 h-[326px] opacity-80 rounded-md blurry-shadow "
+                      className="flex relative justify-center w-auto  h-[300px] opacity-80  blurry-shadow "
                       style={{
-                        backgroundImage: `url(${Clippers_Dallas})`,
+                        backgroundImage: `url(${heat})`,
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
                       }}
                     >
-                      <div className="flex absolute justify-center pt-3 space-x-9 md:space-x-28 pl-2 pr-[61px] z-10 ">
+                      <div className="flex absolute justify-center pt-14 space-x-16 pl-2  z-10 ">
                         <Button
                           type="primary"
                           handleClick={handleSubmit(onSubmit)}
-                          className="hover:scale-105 "
+                          classes="hover:scale-102 "
                         >
-                          Далее к заказу
+                          Оставить отзыв
                         </Button>
-                        <ModalOrder isOpen={isModalOpen} />
-                        <Button type="gray" handleClick={onClose}>
+                        <Button
+                          type="gray"
+                          handleClick={onClose}
+                          classes="hover:scale-102 "
+                        >
                           Отмена
                         </Button>
                       </div>
@@ -167,9 +157,9 @@ const ModalPreOrder = ({ isOpen, onClose }) => {
     </>
   );
 };
-ModalPreOrder.propTypes = {
+ModalFeed.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default ModalPreOrder;
+export default ModalFeed;

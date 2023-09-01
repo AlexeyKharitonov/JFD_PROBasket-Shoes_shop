@@ -1,7 +1,7 @@
 import { BiTimeFive } from "react-icons/bi";
 const WorkTimes = () => {
   return (
-    <div className="flex mx-1.5 items-center mb-5 py-2.5 px-2 justify-center text-base text-gray-400 border-y-4 border-pink-500 border-opacity-60  rounded-3xl">
+    <div className="flex mx-1.5 items-center mb-2 md:mb-5 py-2.5 px-2 justify-center text-xs md:text-base text-gray-400 border-y-4 border-pink-500 border-opacity-60  rounded-3xl">
       <div className="relative ">
         <img
           src={"/Jordan4.jpg"}

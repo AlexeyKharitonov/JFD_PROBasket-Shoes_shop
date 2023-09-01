@@ -87,10 +87,10 @@ const ModalCart = ({ isOpen, onClose, onDelete }) => {
                           })}
                         </div>
                         <div className="border-t-2 border-[#0F6FD1] border-opacity-75 my-4 flex justify-between">
-                          <span className="text-lg font-bold text-gray-700 mt-4">
+                          <span className="text-lg font-bold text-gray-600 mt-4">
                             Итого:
                           </span>
-                          <span className="text-lg font-bold text-gray-700 mt-4">
+                          <span className="text-lg font-bold text-gray-600 mt-4">
                             {items2 ? calcTotalPrice(items2) : 0} руб.
                           </span>
                         </div>

@@ -27,7 +27,7 @@ const AboutPage = () => {
           />
 
           <div className="absolute top-0 left-0 right-0 p-12 bg-gray-200 bg-opacity-0 text-xs sm:text-sm xl:text-base">
-            <div className="flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:space-x-20 items-center opacity-80">
+            <div className="flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:space-x-20 items-center opacity-90">
               <CardWrapper>
                 <div className="flex flex-row leading-[26px] justify-center text-justify p-5 items-center flex-wrap justify">
                   <span className="text-justify " style={{ textIndent: "2em" }}>

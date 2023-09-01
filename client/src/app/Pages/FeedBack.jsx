@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import CardWrapper from "../components/Common/Wrappers/CardWrapper";
@@ -11,10 +11,22 @@ import {
   getFeedbackLoadingStatus,
 } from "../Redux/FeedBack/feedBackReducer";
 import StarsRate from "../components/Common/StarsRate";
+import Button from "../components/Common/Buttons/Button";
+import ModalFeed from "../components/UI/Cart/Modal/ModalFeed";
+import { IoArrowRedo } from "react-icons/io5";
 
 const FeedBack = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const feedBack = useSelector(getAllFeedBack());
   const loading = useSelector(getFeedbackLoadingStatus());
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     toast.dismiss();
@@ -30,9 +42,26 @@ const FeedBack = () => {
         </div>
         <ContentWrapper>
           <CardWrapper>
-            <div className="mx-auto text-gray-700 justify-center text-base xl:text-2xl flex my-6 font-semibold max-w-screen-lg py-5">
+            <div className=" mx-auto text-gray-700 justify-center items-center text-base xl:text-2xl px-5 xl:flex xl:px-0 space-x-6 my-6 font-semibold max-w-screen-lg py-5">
               <div className="border-b-4 pb-1.5 opacity-90 border-[#0f6fd1] rounded-lg">
                 Ниже представлены отзывы наших довольных покупателей!😎
+              </div>
+              <div className="flex items-center"></div>
+              <div className="flex items-center">
+                {/* <span className="pr-2">😜</span> */}
+                <IoArrowRedo
+                  color="#0f6fd1"
+                  className="mr-2 opacity-80"
+                  size={30}
+                />
+                <Button
+                  type="purple"
+                  handleClick={handleOpenModal}
+                  classes=" hover:scale-105"
+                >
+                  Оставить отзыв
+                </Button>
+                <ModalFeed isOpen={isModalOpen} onClose={handleCloseModal} />
               </div>
             </div>
           </CardWrapper>
@@ -50,10 +79,10 @@ const FeedBack = () => {
                     </div>
                   </div>
                   <div>
-                    <div className="text-3xl font-semibold mb-4 text-gray-700">
+                    <div className="text-xl xl:text-3xl font-semibold mb-4 text-gray-700">
                       {comment.name_and_info}
                     </div>
-                    <div className="text-gray-600 text-base mb-8 opacity-80">
+                    <div className="text-gray-600 text-xs xl:text-base mb-8 opacity-80">
                       <Badge>{comment.order_date}</Badge>
                     </div>
                     <span className="mb-7 flex justify-center xl:justify-start">
@@ -62,7 +91,7 @@ const FeedBack = () => {
                     <div className="text-gray-600 pl-1.5 text-lg mb-2.5">
                       Отзыв:
                     </div>
-                    <div className="text-gray-800 bg-[#DCDDE1] px-5 py-1.5 rounded-3xl opacity-95">
+                    <div className="text-gray-800 bg-[#DCDDE1] px-5 text-sm xl:text-lg py-1.5 rounded-3xl opacity-95">
                       {comment.comment}
                     </div>
                   </div>

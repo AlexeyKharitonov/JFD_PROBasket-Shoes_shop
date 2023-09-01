@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import WorkTimes from "../UI/WorkTimes";
 const GroupList = ({ category, onTitleSelect, activeElement }) => {
   return (
-    <div className="flex flex-col items-center justify-center mb-10">
+    <div className="flex flex-col items-center justify-center">
       <WorkTimes />
-      <div className="rounded-3xl border-0 py-4 px-5 bg-[#EEEEEE] text">
+      <div className="rounded-3xl border-0 py-4 px-5 text-sm md:text-lg bg-[#EEEEEE] text">
         {category.map((el) => (
           <button
             key={el._id}

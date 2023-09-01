@@ -58,30 +58,39 @@ const NavProfile = ({ isOpen, onClose, user }) => {
                 >
                   <Dialog.Title
                     as="h3"
-                    className="text-base text-gray-500 font-medium leading-6 "
+                    className="text-base text-gray-600 font-medium leading-6 "
                   >
                     <span className="mx-0 flex flex-col text-center items-center space-y-1">
-                      <div>Ваш логин:</div>
-                      <div className="pb-2.5 text-[#0f6fd1]">{currentUser}</div>
+                      <div className="font-bold text-lg">Ваш логин:</div>
+                      <div className="pb-2 border-b-2 border-opacity-50 border-[#0f6fd1] text-[#0f6fd1] w-[80%]">
+                        {currentUser}
+                      </div>
                       {isAdmin && (
-                        <span>
+                        <span className="border-b-2 py-2 border-[#0f6fd1] border-opacity-50 w-[80%]">
                           <span className="text-[#0f6fd1]">Вы</span> вошли как
                           <span className="flex ">
-                            <span className="mr-1.5"> администратор</span>
-                            <FaUserTie size={25} className=" text-slate-600" />
+                            <span className="mr-1.5 font-bold">
+                              {" "}
+                              администратор
+                            </span>
+                            <FaUserTie
+                              size={25}
+                              className=" text-slate-600 opacity-90"
+                            />
                           </span>
                         </span>
                       )}
+
                       {items.length ? (
-                        <span className="flex items-end">
+                        <span className="flex pt-2.5 items-end border-[#0f6fd1]">
                           <span>
                             У <span className="text-[#0f6fd1]">Вас</span> в
                             корзине
                             <span className="inline-flex items-center underline">
                               {completionOfWord(items.length)}
                               <FaProductHunt
-                                className="ml-2 opacity-90"
-                                size={25}
+                                className="ml-2 opacity-80"
+                                size={26}
                                 color="#7b68ee"
                               />
                             </span>

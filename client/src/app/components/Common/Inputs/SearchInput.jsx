@@ -23,7 +23,7 @@ const SearchInput = ({ onSearchQuery, searchQuery }) => {
         name="searchQuery"
         maxLength="19"
         placeholder="Введите название интересуемого товара..."
-        className="text-xl shadow-xl border-4 border-gray-300 bg-gray-100 outline-0 rounded-3xl w-full py-2.5 px-12 mt-3 hover:border-[#B0B8C1]"
+        className="text-base md:text-xl shadow-xl border-4 border-gray-300 bg-gray-100 outline-0 rounded-3xl w-full py-2.5 px-12 mt-3 hover:border-[#B0B8C1]"
         onChange={onSearchQuery}
         value={searchQuery}
       />

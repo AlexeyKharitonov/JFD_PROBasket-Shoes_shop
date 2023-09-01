@@ -16,7 +16,7 @@ import SizesList from "../../Common/SizesList";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import localStorageService from "../../../Services/localStorage.service";
-import { RiDeleteBack2Fill } from "react-icons/ri";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const ProductCard = ({ sneaker }) => {
   const dispatch = useDispatch();
@@ -27,23 +27,10 @@ const ProductCard = ({ sneaker }) => {
   const isAdmin = localStorageService.getIsAdmin();
   const isProductInCart = products.some((product) => product._id === _id);
 
-  // const initialState = localStorage.getItem("selectedSize");
-  // const [selectedSize, setSelectedSize] = useState(initialState);
-
-  // useEffect(() => {
-  //   localStorage.setItem("selectedSize", selectedSize);
-  // }, [selectedSize]);
-
   const [sizeNotSelected, setSizeNotSelected] = useState(false);
   const productSizeInCart = sizesInCart.find((item) => item._id === _id);
 
   const isSelected = useSelector(isSelectedCurrentSize(_id));
-  // if (isSelected) {
-  //   console.log(`выбран размер ${_id}`);
-  // } else {
-  //   console.log("а другие не выбраны еще");
-  // }
-  // console.log(isSelected);
 
   const handleBuy = (event) => {
     event.preventDefault();
@@ -62,7 +49,6 @@ const ProductCard = ({ sneaker }) => {
     if (isProductInCart) {
       dispatch(removeProductFromCart(_id));
       dispatch(removeSizeFromCart(_id));
-      // setSelectedSize(null);
     } else {
       dispatch(setProductInCart(sneaker));
       toast.error("Товар добавлен в корзину", {
@@ -105,7 +91,7 @@ const ProductCard = ({ sneaker }) => {
 
         {isAdmin && (
           <>
-            <RiDeleteBack2Fill
+            <TiDeleteOutline
               size={72}
               onClick={(event) => handleDelete(event, _id)}
               className="absolute top-4 right-4 cursor-pointer text-[#D96259] hover:text-[#C8524A] hover:scale-105 transition-all "

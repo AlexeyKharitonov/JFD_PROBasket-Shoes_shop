@@ -31,7 +31,7 @@ const ModalOrder = ({ isOpen }) => {
             <div className="fixed inset-0 bg-black bg-opacity-70" />
           </Transition.Child>
 
-          <div className="fixed inset-0 flex items-start justify-end ">
+          <div className="fixed inset-0 flex items-start justify-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -41,7 +41,7 @@ const ModalOrder = ({ isOpen }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="mt-[36px] mr-[550px] px-12 w-full max-w-lg rounded-2xl bg-[#F2F2F2] p-2  pb-3 text-center align-middle shadow-xl transition-all">
+              <Dialog.Panel className="mt-[36px] px-12 w-full max-w-md md:max-w-lg rounded-2xl bg-[#F2F2F2] p-2  pb-3 text-center align-middle shadow-xl transition-all">
                 <div
                   className="overflow-y-auto text-center justify-center items-center text-2xl font-semibold leading-8 overflow-x-hidden mb-1"
                   style={{ maxHeight: "88vh" }}

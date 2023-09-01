@@ -39,14 +39,14 @@ const ProductPage = () => {
         </div>
 
         <ContentWrapper>
-          <div className="relative h-[138vh]  xl:h-[229vh] overflow-y-hidden">
+          <div className="relative h-[151vh]  xl:h-[229vh] overflow-y-hidden">
             <img
               src={cort_ncaa}
               alt="cort_ncaa"
               className="w-full h-[229vh] opacity-80 object-cover rounded-sm blurry-shadow "
             />
 
-            <div className="absolute top-0 left-0 right-0 flex flex-col my-0 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.9)] px-16 py-7 shadow-indigo-900/40 gap-2.5">
+            <div className="absolute top-0 left-0 right-0 flex flex-col my-0 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.9)] px-5 md:px-16 py-7 shadow-indigo-900/40 gap-2.5">
               <div className="flex flex-col space-y-8 xl:space-y-0 items-center xl:flex-row xl:space-x-8 mb-0">
                 <div className="max-w-lg">
                   <CardWrapper>
