@@ -127,7 +127,6 @@ export const logOut = () => (dispatch) => {
   localStorageService.removeAdmin();
   localStorageService.clearAllCart();
   dispatch(deleteAllFromCart());
-
   dispatch(userLoggedOut());
 };
 

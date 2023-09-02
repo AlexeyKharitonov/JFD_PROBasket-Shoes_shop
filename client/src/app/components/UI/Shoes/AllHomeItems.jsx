@@ -119,13 +119,13 @@ const AllHomeItems = () => {
           searchQuery={searchQuery}
         />
         <div className="flex flex-col  sm:flex-row mt-1">
-          <div className="w-full  lg: mr-2 sm:w-2/3 md:w-1/3  sm:mr-8 py-3.5">
+          <div className="w-full lg: mr-2 sm:w-2/3 md:w-1/3  sm:mr-8 py-3.5">
             <GroupList
               activeElement={selectedElement}
               category={category}
               onTitleSelect={handleTitleClick}
             />
-            <div className="flex justify-center items-center ">
+            <div className="flex justify-center items-center mt-7">
               <img
                 src={Doncic}
                 alt="Doncic"

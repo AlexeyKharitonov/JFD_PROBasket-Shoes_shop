@@ -13,8 +13,11 @@ import AppLoader from "./app/components/UI/hoc/AppLoader";
 import Logout from "./app/Layouts/Logout";
 import EditProductPage from "./app/Pages/EditProductPage";
 import FeedBack from "./app/Pages/FeedBack";
+import useLogOut from "./app/Hooks/useLogOut";
 
 function App() {
+  useLogOut();
+
   return (
     <>
       <AppLoader>
