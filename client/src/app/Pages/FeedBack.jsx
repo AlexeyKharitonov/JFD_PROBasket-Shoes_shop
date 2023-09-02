@@ -14,23 +14,31 @@ import StarsRate from "../components/Common/StarsRate";
 import Button from "../components/Common/Buttons/Button";
 import ModalFeed from "../components/UI/Cart/Modal/ModalFeed";
 import { IoArrowRedo } from "react-icons/io5";
+import { getIsLoggedIn } from "../Redux/Users/usersReducer";
 
 const FeedBack = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const feedBack = useSelector(getAllFeedBack());
   const loading = useSelector(getFeedbackLoadingStatus());
 
+  useEffect(() => {
+    toast.dismiss();
+  }, []);
+  const isLoggedIn = useSelector(getIsLoggedIn());
+
   const handleOpenModal = () => {
-    setModalOpen(true);
+    if (!isLoggedIn) {
+      toast.error("Пожалуйста, войдите, чтобы оставить свой отзыв!", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    } else {
+      setModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-
-  useEffect(() => {
-    toast.dismiss();
-  }, []);
 
   if (loading) {
     return <Spinner />;
