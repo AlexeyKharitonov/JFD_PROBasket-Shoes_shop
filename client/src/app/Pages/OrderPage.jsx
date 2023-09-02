@@ -60,9 +60,9 @@ const OrderPage = () => {
       </div>
       <ContentWrapper>
         <CardWrapper>
-          <div className="my-6 md:my-10 xl:p-4 ">
-            <div className="text-center xl:flex xl:justify-between xl:px-8 mb-10 items-center pt-3 pb-0.5 xl:pb-1.5 bg-[#ECEBED]">
-              <div className=" p-1.5 xl:p-3.5 px-8 w-4/4 text-gray-700 text-sm xl:text-xl font-bold border-b-4 rounded-xl border-[#0f6fd1]">
+          <div className="my-6 md:my-10 md:p-4 ">
+            <div className="text-center flex flex-col space-y-3 p-1.5  md:flex md:flex-row md:justify-between px-2 md:px-12 mb-8 md:mb-10 items-center pt-3 pb-0.5 md:pb-1.5 bg-[#ECEBED]">
+              <div className="p-1.5 xl:p-3.5 px-2.5 md:px-10  text-gray-700 text-sm xl:text-xl font-bold border-b-4 rounded-xl border-[#0f6fd1]">
                 У Вас {completionOVerb(allProductsCount)}{" "}
                 <span className="underline text-gray-500 ">
                   {completionOfWord(allProductsCount)}
@@ -73,18 +73,18 @@ const OrderPage = () => {
                 </span>
                 .
               </div>
-              <span className="my-4  xl:flex xl:my-0 ">
+              <span className="my-4 flex flex-col space-y-1.5  justify-center items-center md:flex-row xl:my-0 ">
                 <Button
                   type="white"
                   handleClick={handleDeleteAll}
-                  classes="mr-6 hover:scale-105"
+                  classes="  md:mr-6 hover:scale-105"
                 >
                   Очистить корзину
                 </Button>
                 <Button
                   type="purple"
                   handleClick={handleClock}
-                  classes=" hover:scale-105"
+                  classes="hover:scale-105"
                 >
                   Оформить заказ
                 </Button>

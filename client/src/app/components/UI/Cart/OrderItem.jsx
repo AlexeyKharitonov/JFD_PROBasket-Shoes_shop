@@ -46,7 +46,7 @@ const OrderItem = () => {
         <span key={product._id}>
           <div className="flex justify-between items-center pb-3 mb-3 xl:border-b-2 border-gray-300 rounded-2xl">
             <NavLink to={`/product/${product._id}`}>
-              <div className="w-[177px] hidden xl:block hover:opacity-75">
+              <div className="w-[177px] hidden md:block hover:opacity-75">
                 <img
                   src={product.photos[0]}
                   alt="product"
@@ -55,43 +55,41 @@ const OrderItem = () => {
               </div>
             </NavLink>
             <NavLink to={`/product/${product._id}`}>
-              <span className="mr-4 text-sm text-gray-700  font-medium xl:text-2xl xl:font-bold hover:opacity-50">
+              <span className="mr-1.5 md:mr-4 text-sm text-gray-700  font-bold underline md:text-2xl md:no-underline md:font-bold hover:opacity-50">
                 {product.name}
               </span>
             </NavLink>
 
             <span className="flex items-center">
-              <span className="flex align-items-center mr-8">
+              <span className="flex align-items-center pr-1 md:mr-8">
                 <span className="font-semibold flex align-items-center">
                   <button
                     className="py-0 px-0.5 xl:px-1.5"
                     onClick={() => handleDecrement(product._id)}
                   >
                     <FaMinus
-                      size={22}
                       color="#0f6fd1"
-                      className="leading-none"
+                      className="leading-none w-[0.7rem] h-[0.7rem] md:w-[1.375rem] md:h-[1.375rem]"
                     />
                   </button>
-                  <span className=" flex align-items-center text-gray-600 font-normal text-sm xl:text-lg xl:font-bold leading-normal px-0.5">
+                  <span className=" flex align-items-center text-gray-600 font-normal text-sm md:text-lg xl:font-bold leading-normal px-0 md:px-0.5">
                     {product.count}
                   </span>
                   <button
-                    className=" py-0 px-0.5 xl:px-1.5 "
+                    className=" py-0 px-1 md:px-1.5 "
                     onClick={() => handleIncrement(product._id)}
                   >
                     <FaPlus
-                      size={22}
                       color="#0f6fd1"
-                      className="leading-none"
+                      className="leading-none w-[0.7rem] h-[0.7rem] md:w-[1.375rem] md:h-[1.375rem]"
                     />
                   </button>
                 </span>
               </span>
-              <span className="text-center mr-3 xl:mr-8 font-normal text-xs xl:text-lg xl:font-semibold opacity-60 px-0.5 xl:px-2.5 py-0.5 rounded-3xl text-white bg-gray-400 xl:w-[106px]">
+              <span className="text-center mr-2 md:mr-8 font-normal text-xs md:text-lg md:font-semibold opacity-60 px-0.5 md:px-2.5 py-0.5 rounded-3xl text-white bg-gray-400 md:w-[106px]">
                 {getSizeForProduct(product._id).size} разм.
               </span>
-              <span className="text-center text-gray-600 font-semibold mr-2 xl:mr-8 text-xs xl:text-lg ">
+              <span className="text-center text-gray-600 font-semibold mr-2 md:mr-8 text-xs md:text-lg ">
                 <span>{product.price}</span>
                 <span> руб.</span>
               </span>
@@ -106,7 +104,7 @@ const OrderItem = () => {
               ) : (
                 <button
                   onClick={handleOpen}
-                  className="text-[#D96259] hover:text-[#D15149] mr-4"
+                  className="text-[#D96259] hover:text-[#D15149] mr-1 md:mr-4"
                 >
                   <TiDeleteOutline size={28} />
                 </button>

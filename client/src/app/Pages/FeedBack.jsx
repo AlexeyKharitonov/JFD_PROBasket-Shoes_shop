@@ -42,13 +42,11 @@ const FeedBack = () => {
         </div>
         <ContentWrapper>
           <CardWrapper>
-            <div className=" mx-auto text-gray-700 justify-center items-center text-base xl:text-2xl px-5 xl:flex xl:px-0 space-x-6 my-6 font-semibold max-w-screen-lg py-5">
-              <div className="border-b-4 pb-1.5 opacity-90 border-[#0f6fd1] rounded-lg">
+            <div className="mx-auto text-gray-700 text-base xl:text-2xl px-5 md:px-0 flex-col space-y-3 md:space-y-0 justify-center items-center xl:flex xl:flex-row text-center xl:px-0 space-x-6 md:space-x-12 my-6 font-semibold max-w-screen-lg py-5">
+              <div className="border-b-4 pb-1.5  pt-0.5 flex items-center opacity-90 border-[#0f6fd1] rounded-lg">
                 Ниже представлены отзывы наших довольных покупателей!😎
               </div>
-              <div className="flex items-center"></div>
-              <div className="flex items-center">
-                {/* <span className="pr-2">😜</span> */}
+              <div className="flex items-center justify-center pr-10 md:pr-0">
                 <IoArrowRedo
                   color="#0f6fd1"
                   className="mr-2 opacity-80"
@@ -79,16 +77,16 @@ const FeedBack = () => {
                     </div>
                   </div>
                   <div>
-                    <div className="text-xl xl:text-3xl font-semibold mb-4 text-gray-700">
+                    <div className="text-xl text-center md:text-start xl:text-3xl font-semibold mb-4 text-gray-700">
                       {comment.name_and_info}
                     </div>
-                    <div className="text-gray-600 text-xs xl:text-base mb-8 opacity-80">
+                    <div className="text-gray-600 text-center md:text-start text-xs mb-8 opacity-80">
                       <Badge>{comment.order_date}</Badge>
                     </div>
                     <span className="mb-7 flex justify-center xl:justify-start">
                       <StarsRate>{comment.rate}</StarsRate>
                     </span>
-                    <div className="text-gray-600 pl-1.5 text-lg mb-2.5">
+                    <div className="text-gray-600 text-center md:text-start pl-1.5 text-lg mb-2.5">
                       Отзыв:
                     </div>
                     <div className="text-gray-800 bg-[#DCDDE1] px-5 text-sm xl:text-lg py-1.5 rounded-3xl opacity-95">
