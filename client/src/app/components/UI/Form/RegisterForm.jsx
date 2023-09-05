@@ -128,7 +128,7 @@ const RegisterForm = () => {
               pattern: {
                 value:
                   /^(?:\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/,
-                message: "Неверный формат электронной почты",
+                message: "Неверный формат телефона",
               },
             }}
             error={errors.phone}

@@ -18,12 +18,13 @@ router.post("/signUp", [
   check("password", "Минимальная длина пароля 8 символов").isLength({ min: 8 }),
   check("login", "Некорректный login").isLength({ min: 4 }),
   check("phone", "Некорректный phone").matches(
-    /^\+7\s\(\d{3}\)\s\d{3}[-\s]?\d{2}[-\s]?\d{2}$/
+    /^(?:\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/
   ),
 
   async (req, res) => {
     try {
       const errors = validationResult(req);
+      console.log(errors);
       if (!errors.isEmpty()) {
         return res.status(400).json({
           error: {
