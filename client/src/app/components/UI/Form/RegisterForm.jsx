@@ -9,7 +9,6 @@ import {
   allErrors,
   getIsLoggedIn,
   getUsersLoadingStatus,
-  // setIsAdmin,
   signUp,
   authResetErrors,
 } from "../../../Redux/Users/usersReducer";
@@ -19,7 +18,7 @@ import BackButton from "../../Common/Buttons/BackButton";
 import { TbLogin } from "react-icons/tb";
 
 const RegisterForm = () => {
-  const [isAdminChecked, setIsAdminChecked] = useState(false);
+  const [, setIsAdminChecked] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handlelick = () => {
@@ -166,7 +165,6 @@ const RegisterForm = () => {
                 className="mr-1.5 w-4 h-4 "
                 {...register("isAdmin")}
                 type="checkbox"
-                checked={isAdminChecked}
                 onChange={handleAdmin}
               />
               Режим администратора
