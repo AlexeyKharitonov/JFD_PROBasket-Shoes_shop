@@ -18,34 +18,11 @@ import {
 } from "../Redux/Users/usersReducer";
 import NavProfile from "../components/UI/NavProfile";
 import { BsPersonBoundingBox } from "react-icons/bs";
+import { useOpacity } from "../Hooks/useOpacity";
 
 const NavBar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [opacity, setOpacity] = useState(1);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const startOpacityAt = 70; // начать уменьшение прозрачности после прокрутки на 300px
-      const maxScrollY = 1000; // полная прозрачность при прокрутке на 1000px
-
-      if (currentScrollY <= startOpacityAt) {
-        setOpacity(1);
-      } else {
-        const newOpacity = Math.max(
-          1 - (currentScrollY - startOpacityAt) / (maxScrollY - startOpacityAt),
-          0.8
-        ); // 0.8 - минимальное значение прозрачности
-        setOpacity(newOpacity);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const { opacity } = useOpacity();
 
   const userId = localStorageService.getUserId();
   const user = useSelector(getUserById(userId));
@@ -62,7 +39,8 @@ const NavBar = () => {
 
   return (
     <NavBarWrapper>
-      <nav className="p-1 bg-[#0f6fd1]" style={{ opacity: opacity }}>
+      <nav className="p-1 bg-[#0f6fd1]" style={{ opacity }}>
+        {/*тут у меня ключ opacity и значение opacity совпадают */}
         <div className="container mx-auto px-8">
           <div className="flex justify-between items-center text-base">
             <div className="flex items-center md:mx-2 lg:mx-5 text-gray-400">
